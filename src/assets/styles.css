@@ -1,19 +1,25 @@
+:root {
+  --color-principal: #6656c6;
+  --color-principal-alternativo: #7a6fd6;
+  --color-texto-alternativo: #ffffff;
+}
+
 .btn-purple {
-  background-color: #6656c6;
-  color: white;
+  background-color: var(--color-principal);
+  color: var(--color-texto-alternativo);
 }
 
 .btn-purple:hover {
-  background: #7a6fd6;
-  color: white;
+  background: var(--color-principal-alternativo);
+  color: var(--color-texto-alternativo);
 }
 
 .btn-purple-outline {
-  border-color: #6656c6;
-  color: #6656c6;
+  border-color: var(--color-principal);
+  color: var(--color-principal);
 }
 
 .btn-purple-outline:hover {
-  background-color: #6656c6;
-  color: white;
+  background-color: var(--color-principal);
+  color: var(--color-texto-alternativo);
 }
