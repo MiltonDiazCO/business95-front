@@ -36,6 +36,8 @@ src
 │   ├── interfaces          # Tipos e interfaces específicas del módulo
 │   ├── stores              # Estados locales (Pinia)
 │   └── services            # Servicios específicos del módulo
+|
+├── views                   # Vistas globales (ej. NotFound.vue)
 │
 ├── router
 │   └── index.ts            # Definición de rutas
