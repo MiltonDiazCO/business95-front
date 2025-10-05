@@ -1,48 +1,140 @@
-# business95-front
+# Business 95 (Frontend)
 
-This template should help get you started developing with Vue 3 in Vite.
+Sistema Web para el Control y la Gestión de Inversiones
 
-## Recommended IDE Setup
+**Business 95** es una aplicación web diseñada para facilitar la gestión de inversiones y promover la transparencia entre los socios. A través de esta interfaz, los usuarios pueden consultar, registrar y analizar información financiera proveniente de la API del sistema, optimizando la visualización y toma de decisiones.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## 🧩 Descripción del repositorio
 
-## Recommended Browser Setup
+Este repositorio contiene el **frontend** de _Business 95_, desarrollado con **Vue 3**, **Vite** y **TypeScript**.  
+Se conecta a la API del backend (Spring Boot) para ofrecer una experiencia moderna, rápida y modular en la gestión de inversiones y socios.
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## 📦 Alcance del Frontend
 
-## Type Support for `.vue` Imports in TS
+- Integración con la API REST de _Business 95_.
+- Validaciones de formularios con `Yup` y `Vee-Validate`.
+- Manejo de estado y datos con `@tanstack/vue-query` y `Pinia`.
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## 🗂️ Estructura del Proyecto
 
-## Customize configuration
+```
+src
+├── api                     # Módulos de comunicación con la API (axios)
+│
+├── assets                  # Archivos estáticos y estilos
+│
+├── common
+│   ├── interfaces          # Tipos e interfaces globales
+│   ├── utils               # Funciones reutilizables
+│   ├── components          # Componentes globales
+│   ├── composables         # Lógica reutilizable basada en Composition API
+│   └── config              # Configuraciones globales (ej. Yup)
+│
+├── modules                 # Módulos funcionales del sistema
+│   ├── views               # Vistas/páginas principales del módulo
+│   ├── components          # Componentes propios del módulo
+│   ├── interfaces          # Tipos e interfaces específicas del módulo
+│   ├── stores              # Estados locales (Pinia)
+│   └── services            # Servicios específicos del módulo
+│
+├── router
+│   └── index.ts            # Definición de rutas
+│
+├── App.vue
+├── main.ts
+└── env.d.ts
+```
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+# ⚙️ Variables de entorno
 
-## Project Setup
+Las variables de entorno están definidas en el archivo `.env` (y documentadas en `.env.template`):
+
+```env
+VITE_STAGE=dev
+VITE_B95_API_URL=http://localhost:8080/api/v1
+```
+
+Estas permiten configurar el entorno y la URL base de la API utilizada por Axios.
+
+# 🌐 Configuración de Axios
+
+El cliente HTTP se define en `src/api/b95.ts`:
+
+```ts
+import axios from 'axios';
+
+const b95Api = axios.create({
+  baseURL: import.meta.env.VITE_B95_API_URL,
+});
+
+export { b95Api };
+```
+
+Esto permite realizar peticiones centralizadas a la API Backend usando la URL configurada en `.env`.
+
+# 🧪 Tecnologías utilizadas
+
+- [Vue 3](https://vuejs.org/)
+- [Vite](https://vitejs.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Bootstrap 5](https://getbootstrap.com/)
+- [Bootstrap Icons](https://icons.getbootstrap.com/)
+- [Vee-Validate](https://vee-validate.logaretm.com/) + [Yup](https://github.com/jquense/yup)
+- [TanStack Vue Query](https://tanstack.com/query/latest/docs/framework/vue/overview)
+- [Pinia](https://pinia.vuejs.org/)
+- [Axios](https://axios-http.com/)
+
+# Clonar Repositorio
+
+```
+git clone git@github.com:MiltonDiazCO/business95-front.git
+git clone https://github.com/MiltonDiazCO/business95-front.git
+```
+
+# 🚀 Project Setup
+
+## Instalar dependencias
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+## Compilar y recargar automáticamente para desarrollo
 
 ```sh
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## Verificar tipos, compilar y minificar para producción
 
 ```sh
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## Lint con [ESLint](https://eslint.org/)
 
 ```sh
 npm run lint
 ```
+
+---
+
+# 🧭 Scripts disponibles
+
+| Comando              | Descripción                                 |
+| -------------------- | ------------------------------------------- |
+| `npm run dev`        | Inicia el servidor de desarrollo            |
+| `npm run build`      | Compila el proyecto para producción         |
+| `npm run preview`    | Ejecuta la build localmente                 |
+| `npm run type-check` | Verifica los tipos con TypeScript           |
+| `npm run lint`       | Ejecuta ESLint con correcciones automáticas |
+| `npm run format`     | Formatea el código con Prettier             |
+
+---
+
+# 💡 Requisitos
+
+- Node.js **20.19.0 o superior**
+- npm **9.0+**
+
+© 2025 – Equipo de Desarrollo Business 95

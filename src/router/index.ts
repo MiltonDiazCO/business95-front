@@ -11,19 +11,19 @@ const router = createRouter({
     {
       path: '/',
       redirect: 'inversiones',
-      component: () => import('@/modules/dashboard/pages/DashboardView.vue'),
+      component: () => import('@/modules/dashboard/views/DashboardView.vue'),
       children: [
         {
           path: '/inversiones',
           name: 'inversiones',
-          component: () => import('@/modules/inversiones/pages/InversionesList.vue'),
+          component: () => import('@/modules/inversiones/views/InversionesList.vue'),
         },
       ],
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import('@/modules/auth/pages/LoginView.vue'),
+      component: () => import('@/modules/auth/views/LoginView.vue'),
     },
   ],
 });
