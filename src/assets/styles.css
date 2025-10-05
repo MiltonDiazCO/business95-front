@@ -2,3 +2,18 @@
   background-color: #6656c6;
   color: white;
 }
+
+.btn-purple:hover {
+  background: #7a6fd6;
+  color: white;
+}
+
+.btn-purple-outline {
+  border-color: #6656c6;
+  color: #6656c6;
+}
+
+.btn-purple-outline:hover {
+  background-color: #6656c6;
+  color: white;
+}
