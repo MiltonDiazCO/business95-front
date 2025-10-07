@@ -1,33 +1,52 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="text-center">
-        <h1>Bienvenido</h1>
-      </div>
-    </div>
+  <div class="container-fluid">
+    <div class="row min-vh-100">
+      <!-- Imagén -->
+      <div class="bg-layer col col-md-4 col-lg-3 col-xl-4 d-none d-lg-block"></div>
 
-    <div class="row">
-      <div class="col-md-6 m-auto">
+      <!-- Login -->
+      <div class="col-md-4 mx-auto p-4" style="margin-top: 25vh">
+        <h2 class="fw-bold text-center">Bienvenido</h2>
+
+        <!-- Formulario -->
         <form @submit.prevent="login">
-          <div class="mb-3">
+          <div class="mb-4">
             <label for="id-socio" class="form-label">ID Socio</label>
-            <input type="text" v-model="idSocio" class="form-control" placeholder="Ingrese su ID" />
-            <p v-if="errorApi" class="text-danger">{{ errorApi }}</p>
-            <p v-if="errors.idSocio" class="text-danger">{{ errors.idSocio }}</p>
+            <input
+              type="text"
+              v-model="idSocio"
+              class="form-control"
+              placeholder="Ingrese su ID"
+              autofocus
+            />
           </div>
-          <button type="submit" class="btn btn-purple">Ingresar</button>
+
+          <div>
+            <p v-if="errorApi" class="alert alert-danger py-1">{{ errorApi }}</p>
+            <p v-if="errors.idSocio" class="alert alert-danger py-1">{{ errors.idSocio }}</p>
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-purple">Ingresar</button>
+          </div>
         </form>
       </div>
     </div>
   </div>
 </template>
 
+<style scoped>
+.bg-layer {
+  background: linear-gradient(135deg, var(--color-principal), #7a42c1);
+}
+</style>
+
 <script lang="ts" setup>
 import { getSocio } from '@/modules/socios/services/socios-service';
-import { useRouter } from 'vue-router';
 import { useForm } from 'vee-validate';
-import * as yup from 'yup';
 import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import * as yup from 'yup';
 
 const router = useRouter();
 
