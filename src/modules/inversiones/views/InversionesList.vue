@@ -1,22 +1,26 @@
 <template>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Inversion</th>
-        <th scope="col" class="text-end">Ingresos</th>
-        <th scope="col" class="text-end">Gatos</th>
-        <th scope="col" class="text-end">Balance</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="inversion in inversiones" :key="inversion.inversion">
-        <td scope="row">{{ inversion.inversion }}</td>
-        <td scope="row" class="text-end">{{ formatoMoneda.format(inversion.ingresos) }}</td>
-        <td scope="row" class="text-end">{{ formatoMoneda.format(inversion.gastos) }}</td>
-        <td scope="row" class="text-end">{{ formatoMoneda.format(inversion.balanceInversion) }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-striped table-response">
+      <thead>
+        <tr>
+          <th scope="col">Inversion</th>
+          <th scope="col" class="text-end">Ingresos</th>
+          <th scope="col" class="text-end">Gatos</th>
+          <th scope="col" class="text-end">Balance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="inversion in inversiones" :key="inversion.inversion">
+          <td scope="row">{{ inversion.inversion }}</td>
+          <td scope="row" class="text-end">{{ formatoMoneda.format(inversion.ingresos) }}</td>
+          <td scope="row" class="text-end">{{ formatoMoneda.format(inversion.gastos) }}</td>
+          <td scope="row" class="text-end">
+            {{ formatoMoneda.format(inversion.balanceInversion) }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <script lang="ts" setup>

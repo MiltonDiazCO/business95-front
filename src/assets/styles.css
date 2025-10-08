@@ -1,6 +1,6 @@
 :root {
   --color-principal: #6656c6;
-  --color-principal-alternativo: #7a6fd6;
+  --color-alternativo: #7a6fd6;
   --color-texto-alternativo: #ffffff;
 }
 
@@ -10,7 +10,7 @@
 }
 
 .btn-purple:hover {
-  background: var(--color-principal-alternativo);
+  background: var(--color-alternativo);
   color: var(--color-texto-alternativo);
 }
 
