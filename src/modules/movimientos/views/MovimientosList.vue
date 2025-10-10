@@ -2,11 +2,15 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col">
+        <router-link :to="{ name: 'movimientos-crear' }" class="btn btn-purple mt-2">
+          Nuevo Movimiento <i class="bi bi-plus-circle-fill"></i>
+        </router-link>
+
         <div class="table-responsive">
-          <table class="table table-striped table-response">
+          <table class="table table-striped table-hover table-bordered mt-2">
             <thead>
               <tr>
-                <th scope="col">ID</th>
+                <th scope="col" class="text-center">ID</th>
                 <th scope="col">Categoria</th>
                 <th scope="col">Concepto</th>
                 <th scope="col" class="text-end">Cantidad</th>
@@ -18,7 +22,7 @@
             </thead>
             <tbody>
               <tr v-for="movimiento in movimientos" :key="movimiento.idMovimiento">
-                <td scope="row">{{ movimiento.idMovimiento }}</td>
+                <td scope="row" class="text-center">{{ movimiento.idMovimiento }}</td>
                 <td>{{ movimiento.categoria }}</td>
                 <td>{{ movimiento.concepto }}</td>
                 <td class="text-end">{{ movimiento.cantidadMovimiento }}</td>

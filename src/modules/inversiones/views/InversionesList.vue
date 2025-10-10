@@ -3,13 +3,14 @@
     <div class="row">
       <div class="col">
         <div class="table-responsive">
-          <table class="table table-striped table-response">
+          <table class="table table-striped table-hover table-bordered mt-2">
             <thead>
               <tr>
                 <th scope="col">Inversion</th>
                 <th scope="col" class="text-end">Ingresos</th>
                 <th scope="col" class="text-end">Gatos</th>
                 <th scope="col" class="text-end">Balance</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>

@@ -24,6 +24,11 @@ const router = createRouter({
           component: () => import('@/modules/movimientos/views/MovimientosList.vue'),
           props: (route) => ({ idInversion: Number(route.params.idInversion) }),
         },
+        {
+          path: 'movimientos/crear',
+          name: 'movimientos-crear',
+          component: () => import('@/modules/movimientos/views/MovimientoForm.vue'),
+        },
       ],
     },
     {
