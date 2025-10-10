@@ -10,13 +10,19 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: 'inversiones',
+      redirect: '/inversiones',
       component: () => import('@/modules/dashboard/views/DashboardView.vue'),
       children: [
         {
-          path: '/inversiones',
+          path: 'inversiones',
           name: 'inversiones',
           component: () => import('@/modules/inversiones/views/InversionesList.vue'),
+        },
+        {
+          path: 'inversiones/:idInversion/movimientos',
+          name: 'movimientos',
+          component: () => import('@/modules/movimientos/views/MovimientosList.vue'),
+          props: (route) => ({ idInversion: Number(route.params.idInversion) }),
         },
       ],
     },

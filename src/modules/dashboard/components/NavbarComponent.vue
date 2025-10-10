@@ -6,7 +6,7 @@
         data-bs-toggle="offcanvas"
         data-bs-target="#sidebar-lateral"
       >
-        <span class="fw-bold">B95$</span>
+        <span class="fw-bold">B95$ <i class="bi bi-list"></i></span>
       </button>
       <button @click="logout" class="btn btn-purple-outline">
         <i class="bi bi-power"></i>
