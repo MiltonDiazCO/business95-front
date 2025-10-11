@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getInversionesPorSocio } from '@/modules/inversiones/services/inversiones-service';
+import { getInversionesPorSocio } from '@/services/inversiones-service';
 import { useQuery } from '@tanstack/vue-query';
 import { formatoMoneda } from '@/common/utils/formato.moneda';
 

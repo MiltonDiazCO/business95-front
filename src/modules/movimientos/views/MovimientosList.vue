@@ -42,7 +42,7 @@
 <script lang="ts" setup>
 import { formatoMoneda } from '@/common/utils/formato.moneda';
 import { useQuery } from '@tanstack/vue-query';
-import { getMovimientosPorInversion } from '../services/movimiento-service';
+import { getMovimientosPorInversion } from '../../../services/movimiento-service';
 
 interface Props {
   idInversion: number;

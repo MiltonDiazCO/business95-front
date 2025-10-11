@@ -42,7 +42,7 @@
 </style>
 
 <script lang="ts" setup>
-import { getSocio } from '@/modules/socios/services/socios-service';
+import { getSocio } from '@/services/socios-service';
 import { useForm } from 'vee-validate';
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
