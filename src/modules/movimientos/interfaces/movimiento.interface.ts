@@ -1,10 +1,10 @@
+import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
+
 export interface Movimiento {
-  idMovimiento: number;
+  inversion: number;
   concepto: string;
-  categoria: string;
-  cantidadMovimiento: number;
-  medida?: string;
-  balanceMovimiento: number;
+  categoria: number;
   moneda: string;
-  fechaUltimaActividad: Date;
+  medida: number;
+  actividadesSocio: ActividadSocio[];
 }

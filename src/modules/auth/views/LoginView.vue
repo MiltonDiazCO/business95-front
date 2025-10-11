@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row min-vh-100">
       <!-- Imagén -->
-      <div class="bg-layer col col-md-4 col-lg-3 col-xl-4 d-none d-lg-block"></div>
+      <div class="bg-lateral col col-md-4 col-lg-3 col-xl-4 d-none d-lg-block"></div>
 
       <!-- Login -->
       <div class="col-md-4 mx-auto p-4" style="margin-top: 25vh">
@@ -36,7 +36,7 @@
 </template>
 
 <style scoped>
-.bg-layer {
+.bg-lateral {
   background: linear-gradient(135deg, var(--color-principal), #7a42c1);
 }
 </style>

@@ -2,7 +2,10 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col">
-        <router-link :to="{ name: 'movimientos-crear' }" class="btn btn-purple mt-2">
+        <router-link
+          :to="{ name: 'movimientos-crear', state: { idInversion: props.idInversion } }"
+          class="btn btn-purple mt-2"
+        >
           Nuevo Movimiento <i class="bi bi-plus-circle-fill"></i>
         </router-link>
 

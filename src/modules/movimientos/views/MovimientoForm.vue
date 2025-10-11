@@ -2,15 +2,14 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-5">
-        <form>
+        <form @submit.prevent="onSubmit">
           <div class="mb-1">
             <label for="categoria" class="form-label">Categoria</label>
-            <select name="categoria" id="categoria" class="form-select">
-              <option selected>Seleccione una categoria</option>
+            <select v-model="categoria" id="categoria" class="form-select">
               <option
                 v-for="categoria in categorias"
                 :key="categoria.idCategoria"
-                value="{{ categoria.idCategoria }}"
+                :value="categoria.idCategoria"
               >
                 {{ categoria.categoria }}
               </option>
@@ -19,18 +18,19 @@
 
           <div class="mb-1">
             <label for="concepto" class="form-label">Concepto</label>
-            <input type="text" class="form-control" id="concepto" placeholder="Concepto" />
+            <input
+              v-model="concepto"
+              type="text"
+              class="form-control"
+              id="concepto"
+              placeholder="Concepto"
+            />
           </div>
 
           <div class="mb-1">
             <label for="moneda" class="form-label">Moneda</label>
-            <select name="moneda" id="moneda" class="form-select">
-              <option selected>Seleccione una moneda</option>
-              <option
-                v-for="moneda in monedas"
-                :key="moneda.idMoneda"
-                value="{{ moneda.idMoneda }}"
-              >
+            <select v-model="moneda" id="moneda" class="form-select">
+              <option v-for="moneda in monedas" :key="moneda.idMoneda" :value="moneda.idMoneda">
                 {{ moneda.idMoneda }}
               </option>
             </select>
@@ -38,16 +38,15 @@
 
           <div class="mb-1">
             <label for="medida" class="form-label">Medida</label>
-            <select name="medida" id="medida" class="form-select">
-              <option selected>Seleccione una medida</option>
-              <option
-                v-for="medida in medidas"
-                :key="medida.idMedida"
-                value="{{ medida.idMedida }}"
-              >
+            <select v-model="medida" id="medida" class="form-select">
+              <option v-for="medida in medidas" :key="medida.idMedida" :value="medida.idMedida">
                 {{ medida.descripcion }}
               </option>
             </select>
+          </div>
+
+          <div class="mt-2">
+            <button type="submit" class="btn btn-purple">Guardar</button>
           </div>
         </form>
       </div>
@@ -60,6 +59,27 @@ import { getCategorias } from '@/common/services/categoria-service';
 import { getMedidas } from '@/common/services/medida-service';
 import { getMonedas } from '@/common/services/moneda-service';
 import { useQuery } from '@tanstack/vue-query';
+import { useForm } from 'vee-validate';
+import type { Movimiento } from '../interfaces/movimiento.interface';
+
+const { handleSubmit, defineField } = useForm();
+
+const [categoria] = defineField('categoria');
+const [concepto] = defineField('concepto');
+const [moneda] = defineField('moneda');
+const [medida] = defineField('medida');
+
+const onSubmit = handleSubmit(async () => {
+  const movimientoPost: Movimiento = {
+    inversion: window.history.state?.idInversion,
+    concepto: concepto.value,
+    categoria: categoria.value,
+    moneda: moneda.value,
+    medida: medida.value,
+    actividadesSocio: [],
+  };
+  console.log(movimientoPost);
+});
 
 const { data: categorias = [] } = useQuery({
   queryKey: ['categorias'],
