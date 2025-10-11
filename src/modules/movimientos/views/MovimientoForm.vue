@@ -16,9 +16,24 @@
               </option>
             </select>
           </div>
+
           <div class="mb-1">
             <label for="concepto" class="form-label">Concepto</label>
             <input type="text" class="form-control" id="concepto" placeholder="Concepto" />
+          </div>
+
+          <div class="mb-1">
+            <label for="moneda" class="form-label">Moneda</label>
+            <select name="moneda" id="moneda" class="form-select">
+              <option selected>Seleccione una moneda</option>
+              <option
+                v-for="moneda in monedas"
+                :key="moneda.idMoneda"
+                value="{{ moneda.idMoneda }}"
+              >
+                {{ moneda.idMoneda }}
+              </option>
+            </select>
           </div>
         </form>
       </div>
@@ -28,12 +43,20 @@
 
 <script lang="ts" setup>
 import { getCategorias } from '@/common/services/categoria.serive';
+import { getMonedas } from '@/services/monedas-service';
 import { useQuery } from '@tanstack/vue-query';
 
 const { data: categorias = [] } = useQuery({
   queryKey: ['categorias'],
   queryFn: async () => {
     return await getCategorias();
+  },
+});
+
+const { data: monedas = [] } = useQuery({
+  queryKey: ['monedas'],
+  queryFn: async () => {
+    return await getMonedas();
   },
 });
 </script>
