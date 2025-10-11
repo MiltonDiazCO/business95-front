@@ -35,6 +35,20 @@
               </option>
             </select>
           </div>
+
+          <div class="mb-1">
+            <label for="medida" class="form-label">Medida</label>
+            <select name="medida" id="medida" class="form-select">
+              <option selected>Seleccione una medida</option>
+              <option
+                v-for="medida in medidas"
+                :key="medida.idMedida"
+                value="{{ medida.idMedida }}"
+              >
+                {{ medida.descripcion }}
+              </option>
+            </select>
+          </div>
         </form>
       </div>
     </div>
@@ -42,8 +56,9 @@
 </template>
 
 <script lang="ts" setup>
-import { getCategorias } from '@/common/services/categoria.serive';
-import { getMonedas } from '@/common/services/monedas-service';
+import { getCategorias } from '@/common/services/categoria-service';
+import { getMedidas } from '@/common/services/medida-service';
+import { getMonedas } from '@/common/services/moneda-service';
 import { useQuery } from '@tanstack/vue-query';
 
 const { data: categorias = [] } = useQuery({
@@ -57,6 +72,13 @@ const { data: monedas = [] } = useQuery({
   queryKey: ['monedas'],
   queryFn: async () => {
     return await getMonedas();
+  },
+});
+
+const { data: medidas = [] } = useQuery({
+  queryKey: ['medidas'],
+  queryFn: async () => {
+    return await getMedidas();
   },
 });
 </script>
