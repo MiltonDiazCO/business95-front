@@ -43,7 +43,7 @@
 
 <script lang="ts" setup>
 import { getCategorias } from '@/common/services/categoria.serive';
-import { getMonedas } from '@/services/monedas-service';
+import { getMonedas } from '@/common/services/monedas-service';
 import { useQuery } from '@tanstack/vue-query';
 
 const { data: categorias = [] } = useQuery({
