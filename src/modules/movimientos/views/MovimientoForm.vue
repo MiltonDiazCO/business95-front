@@ -45,6 +45,11 @@
             </select>
           </div>
 
+          <fieldset>
+            <legend>Actividades Socios</legend>
+            <ActividadSocioForm />
+          </fieldset>
+
           <div class="mt-2">
             <button type="submit" class="btn btn-purple">Guardar</button>
           </div>
