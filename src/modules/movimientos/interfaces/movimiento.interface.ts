@@ -6,5 +6,5 @@ export interface Movimiento {
   categoria: number;
   moneda: string;
   medida: number;
-  actividadesSocio: ActividadSocio[];
+  actividades: ActividadSocio[];
 }

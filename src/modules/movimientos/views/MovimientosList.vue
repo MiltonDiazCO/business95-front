@@ -46,6 +46,11 @@
 import { formatoMoneda } from '@/common/utils/formato.moneda';
 import { useQuery } from '@tanstack/vue-query';
 import { getMovimientosPorInversion } from '../../../common/services/movimiento-service';
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+
+sessionStorage.setItem('state-id-inversion', String(route.params.idInversion));
 
 interface Props {
   idInversion: number;

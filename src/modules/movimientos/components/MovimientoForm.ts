@@ -1,12 +1,19 @@
-import { getCategorias } from '@/common/services/categoria-service';
-import { getMedidas } from '@/common/services/medida-service';
-import { getMonedas } from '@/common/services/moneda-service';
-import { useQuery } from '@tanstack/vue-query';
+import { useCatalogos } from '@/common/composables/useCatalogos';
+import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
+import { saveMovimiento } from '@/common/services/movimiento-service';
+import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import { useForm } from 'vee-validate';
-import { defineComponent } from 'vue';
+import { defineComponent, type PropType } from 'vue';
+import { useRouter } from 'vue-router';
+import type { Movimiento } from '../interfaces/movimiento.interface';
 
 export default defineComponent({
-  setup() {
+  props: {
+    actividadesSocios: {
+      type: Array as PropType<ActividadSocio[]>,
+    },
+  },
+  setup(props) {
     const { handleSubmit, defineField } = useForm();
 
     const [categoria] = defineField('categoria');
@@ -14,29 +21,30 @@ export default defineComponent({
     const [moneda] = defineField('moneda');
     const [medida] = defineField('medida');
 
-    const onSubmit = handleSubmit(() => {
-      console.log('OK Movs');
-    });
+    const { categorias, monedas, medidas } = useCatalogos();
+    const router = useRouter();
 
-    const { data: categorias = [] } = useQuery({
-      queryKey: ['categorias'],
-      queryFn: async () => {
-        return await getCategorias();
-      },
-    });
+    const onSubmit = handleSubmit(async () => {
+      const idInversionState: number = Number(sessionStorage.getItem('state-id-inversion'));
 
-    const { data: monedas = [] } = useQuery({
-      queryKey: ['monedas'],
-      queryFn: async () => {
-        return await getMonedas();
-      },
-    });
+      const movimientoPost: Movimiento = {
+        inversion: idInversionState,
+        categoria: categoria.value,
+        concepto: concepto.value,
+        moneda: moneda.value,
+        medida: medida.value,
+        actividades: props.actividadesSocios ?? [],
+      };
 
-    const { data: medidas = [] } = useQuery({
-      queryKey: ['medidas'],
-      queryFn: async () => {
-        return await getMedidas();
-      },
+      try {
+        await saveMovimiento(movimientoPost);
+        router.replace({ name: 'movimientos', params: { idInversion: idInversionState } });
+      } catch (error: unknown) {
+        const errorApi = error as ErrorB95Api;
+        errorApi.errores.forEach((error) => {
+          console.log(error);
+        });
+      }
     });
 
     return {

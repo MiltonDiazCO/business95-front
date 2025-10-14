@@ -12,7 +12,7 @@
           <option
             v-for="tipoActividad in tipoActividades"
             :key="tipoActividad.idTipoActividad"
-            :value="tipoActividad.tipoActividad"
+            :value="tipoActividad.idTipoActividad"
             :title="tipoActividad.descripcion"
           >
             {{ tipoActividad.tipoActividad }}
@@ -53,11 +53,11 @@
 </template>
 
 <script lang="ts" setup>
-import { getTipoActividades } from '@/common/services/tipo-actividad.service';
-import { useQuery } from '@tanstack/vue-query';
+import { useCatalogos } from '@/common/composables/useCatalogos';
 import { useForm } from 'vee-validate';
+import type { ActividadSocio } from '../interfaces/actividad.socio.interface';
 
-const { handleSubmit, defineField } = useForm();
+const { handleSubmit, defineField, resetForm } = useForm();
 
 const [socio] = defineField('socio');
 const [cantidad] = defineField('cantidad');
@@ -65,14 +65,23 @@ const [monto] = defineField('monto');
 const [fechaHora] = defineField('fechaHora');
 const [tipoActividad] = defineField('tipo-actividad');
 
-const onSubmit = handleSubmit(() => {
-  console.log('OK Acts');
-});
+const { tipoActividades } = useCatalogos();
 
-const { data: tipoActividades = [] } = useQuery({
-  queryKey: ['tipoActividades'],
-  queryFn: async () => {
-    return await getTipoActividades();
-  },
+const emit = defineEmits<{
+  (e: 'actividadSocio', value: ActividadSocio): void;
+}>();
+
+const onSubmit = handleSubmit(() => {
+  const actividad: ActividadSocio = {
+    socio: socio.value,
+    cantidad: cantidad.value,
+    monto: monto.value,
+    fecha: fechaHora.value,
+    tipoActividad: tipoActividad.value,
+  };
+
+  emit('actividadSocio', actividad);
+
+  resetForm();
 });
 </script>

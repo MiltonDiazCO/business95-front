@@ -1,9 +1,12 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-5 border rounded mx-3 my-2 p-2">
-        <MovimientoForm v-if="route.name === 'movimientos-crear'" />
-        <ActividadSocioForm class="border rounded mt-3 p-2" />
+    <div class="row mx-1">
+      <div class="col-md-5 col-lg-5 border rounded my-2 p-2">
+        <MovimientoForm
+          v-if="route.name === 'movimientos-crear'"
+          :actividadesSocios="actividadesSocios"
+        />
+        <ActividadSocioForm @actividadSocio="addActividadSocio" class="border rounded mt-3 p-2" />
 
         <div class="col mt-2">
           <button
@@ -20,15 +23,26 @@
         </div>
       </div>
 
-      <div class="col-md-7"></div>
+      <div class="col-md-7 col-lg-7 my-2">
+        <ActividadesSociosList :actividadesSocios="actividadesSocios" />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import MovimientoForm from '@/modules/movimientos/components/MovimientoForm.vue';
+import ActividadesSociosList from '@/modules/actividades/components/ActividadesSociosList.vue';
 import ActividadSocioForm from '@/modules/actividades/components/ActividadSocioForm.vue';
+import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
+import MovimientoForm from '@/modules/movimientos/components/MovimientoForm.vue';
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
+
+const actividadesSocios = ref<ActividadSocio[]>([]);
+
+const addActividadSocio = (actividadSocio: ActividadSocio) => {
+  actividadesSocios.value.push(actividadSocio);
+};
 </script>
