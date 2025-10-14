@@ -1,48 +1,53 @@
 <template>
-  <form @submit.prevent="onSubmit">
-    <div class="mb-1">
-      <label for="socio" class="form-label">Socio</label>
-      <input v-model="socio" type="number" class="form-control" id="socio" placeholder="Socio" />
+  <form @submit.prevent="onSubmit" id="form-actividades">
+    <div class="row">
+      <div class="col mb-1">
+        <label for="socio" class="form-label">Socio</label>
+        <input v-model="socio" type="number" class="form-control" id="socio" placeholder="Socio" />
+      </div>
+
+      <div class="col mb-1">
+        <label for="tipo-actividad" class="form-label">Tipo Actividad</label>
+        <select v-model="tipoActividad" id="tipo-actividad" class="form-select">
+          <option
+            v-for="tipoActividad in tipoActividades"
+            :key="tipoActividad.idTipoActividad"
+            :value="tipoActividad.tipoActividad"
+            :title="tipoActividad.descripcion"
+          >
+            {{ tipoActividad.tipoActividad }}
+          </option>
+        </select>
+      </div>
     </div>
 
-    <div class="mb-1">
-      <label for="cantidad" class="form-label">Cantidad</label>
-      <input
-        v-model="cantidad"
-        type="decimal"
-        class="form-control"
-        id="cantidad"
-        placeholder="Cantidad"
-      />
-    </div>
+    <div class="row">
+      <div class="col mb-1">
+        <label for="cantidad" class="form-label">Cantidad</label>
+        <input
+          v-model="cantidad"
+          type="decimal"
+          class="form-control"
+          id="cantidad"
+          placeholder="Cantidad"
+        />
+      </div>
 
-    <div class="mb-1">
-      <label for="monto" class="form-label">Monto</label>
-      <input v-model="monto" type="decimal" class="form-control" id="monto" placeholder="Monto" />
-    </div>
+      <div class="col mb-1">
+        <label for="monto" class="form-label">Monto</label>
+        <input v-model="monto" type="decimal" class="form-control" id="monto" placeholder="Monto" />
+      </div>
 
-    <div class="mb-1">
-      <label for="fechaHora" class="form-label">Fecha y Hora</label>
-      <input
-        v-model="fechaHora"
-        type="datetime-local"
-        class="form-control"
-        id="fechaHora"
-        placeholder="fechaHora"
-      />
-    </div>
-
-    <div class="mb-1">
-      <label for="tipo-actividad" class="form-label">Tipo Actividad</label>
-      <select v-model="tipoActividad" id="tipo-actividad" class="form-select">
-        <option
-          v-for="tipoActividad in tipoActividades"
-          :key="tipoActividad.idTipoActividad"
-          :value="tipoActividad.tipoActividad"
-        >
-          {{ tipoActividad.tipoActividad }}
-        </option>
-      </select>
+      <div class="col mb-1">
+        <label for="fechaHora" class="form-label">Fecha y Hora</label>
+        <input
+          v-model="fechaHora"
+          type="datetime-local"
+          class="form-control"
+          id="fechaHora"
+          placeholder="fechaHora"
+        />
+      </div>
     </div>
   </form>
 </template>
@@ -60,7 +65,9 @@ const [monto] = defineField('monto');
 const [fechaHora] = defineField('fechaHora');
 const [tipoActividad] = defineField('tipo-actividad');
 
-const onSubmit = handleSubmit(() => {});
+const onSubmit = handleSubmit(() => {
+  console.log('OK Acts');
+});
 
 const { data: tipoActividades = [] } = useQuery({
   queryKey: ['tipoActividades'],

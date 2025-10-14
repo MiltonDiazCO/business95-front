@@ -4,12 +4,8 @@ import { getMonedas } from '@/common/services/moneda-service';
 import { useQuery } from '@tanstack/vue-query';
 import { useForm } from 'vee-validate';
 import { defineComponent } from 'vue';
-import ActividadSocioForm from '@/modules/actividades/components/ActividadSocioForm.vue';
 
 export default defineComponent({
-  components: {
-    ActividadSocioForm,
-  },
   setup() {
     const { handleSubmit, defineField } = useForm();
 
@@ -19,7 +15,7 @@ export default defineComponent({
     const [medida] = defineField('medida');
 
     const onSubmit = handleSubmit(() => {
-      console.log('OK');
+      console.log('OK Movs');
     });
 
     const { data: categorias = [] } = useQuery({
