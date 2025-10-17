@@ -22,7 +22,7 @@
           </div>
 
           <div>
-            <p v-if="errorApi" class="alert alert-danger py-1">{{ errorApi }}</p>
+            <p v-if="dataError" class="alert alert-danger py-1">{{ dataError }}</p>
             <p v-if="errors.idSocio" class="alert alert-danger py-1">{{ errors.idSocio }}</p>
           </div>
 
@@ -42,6 +42,7 @@
 </style>
 
 <script lang="ts" setup>
+import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
 import { getSocio } from '@/common/services/socio-service';
 import { useForm } from 'vee-validate';
 import { ref, watch } from 'vue';
@@ -50,7 +51,7 @@ import * as yup from 'yup';
 
 const router = useRouter();
 
-const errorApi = ref('');
+const dataError = ref('');
 
 const schemaValidation = yup.object({
   idSocio: yup
@@ -65,20 +66,19 @@ const { handleSubmit, defineField, errors } = useForm({ validationSchema: schema
 const [idSocio] = defineField('idSocio');
 
 watch(idSocio, () => {
-  errorApi.value = '';
+  dataError.value = '';
 });
 
 const login = handleSubmit(async () => {
   try {
-    const { sucess, data: socio, dataError } = await getSocio(Number(idSocio.value));
-    if (sucess && socio) {
+    const { data: socio } = await getSocio(Number(idSocio.value));
+    if (socio) {
       localStorage.setItem('socio-token-temporal', socio.idSocio.toString());
       router.push({ name: 'inversiones' });
-    } else {
-      errorApi.value = dataError?.errores?.[0] ?? 'Ha ocurrido un error';
     }
-  } catch (error) {
-    console.log(error);
+  } catch (error: unknown) {
+    const errorApi = error as ErrorB95Api;
+    dataError.value = errorApi?.errores?.[0] ?? 'Ha ocurrido un error';
   }
 });
 </script>

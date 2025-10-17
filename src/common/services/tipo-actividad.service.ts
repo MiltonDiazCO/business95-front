@@ -7,6 +7,6 @@ export const getTipoActividades = async () => {
     const { data } = await b95Api.get<TipoActividad[]>(`/tipo-actividades`);
     return data;
   } catch (error) {
-    handleAxiosError(error);
+    throw handleAxiosError(error);
   }
 };
