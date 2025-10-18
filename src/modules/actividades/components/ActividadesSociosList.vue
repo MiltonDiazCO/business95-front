@@ -19,20 +19,66 @@
           <td>{{ actividadSocio.fecha }}</td>
           <td>{{ actividadSocio.tipoActividad }}</td>
           <td>
-            <i
+            <!-- Button de activar modal -->
+            <button
+              type="button"
+              class="btn me-2 p-0"
+              data-bs-toggle="modal"
+              data-bs-target="#actividadesFormModal"
+              style="border-color: transparent"
+              title="Modificar"
+            >
+              <i class="bi bi-pencil-square color-principal"></i>
+            </button>
+
+            <!-- Button de eliminar -->
+            <button
               @click="deleteActividadSocio(actividadSocio.idActividad ?? 0)"
-              class="bi bi-trash color-principal"
+              type="button"
+              class="btn p-0"
               title="Eliminar"
-            ></i>
+            >
+              <i class="bi bi-trash color-principal"></i>
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="actividadesFormModal"
+    tabindex="-1"
+    aria-labelledby="actividadesFormModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Cerrar"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <ActividadSocioForm />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-principal">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
+import ActividadSocioForm from '@/modules/actividades/components/ActividadSocioForm.vue';
 import { formatoMoneda } from '@/common/utils/formato.moneda';
 
 interface Props {
@@ -40,17 +86,17 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
 const emit = defineEmits<{
   (e: 'changeActividadesSocios', value: ActividadSocio[]): void;
 }>();
 
-let actividadesSocios: ActividadSocio[] = props.actividadesSocios;
-
 const deleteActividadSocio = (idActividadSocio: number) => {
-  actividadesSocios = actividadesSocios.filter((actividadSocio) => {
-    return actividadSocio.idActividad !== idActividadSocio;
-  });
-
-  emit('changeActividadesSocios', actividadesSocios);
+  emit(
+    'changeActividadesSocios',
+    props.actividadesSocios.filter((actividadSocio) => {
+      return actividadSocio.idActividad !== idActividadSocio;
+    }),
+  );
 };
 </script>
