@@ -4,8 +4,8 @@ import { saveMovimiento } from '@/common/services/movimiento-service';
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import { useForm } from 'vee-validate';
 import { defineComponent, type PropType } from 'vue';
-import { useRouter } from 'vue-router';
 import type { Movimiento } from '../interfaces/movimiento.interface';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   props: {
@@ -14,6 +14,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const router = useRouter();
+
     const { handleSubmit, defineField } = useForm();
 
     const [categoria] = defineField('categoria');
@@ -22,10 +24,19 @@ export default defineComponent({
     const [medida] = defineField('medida');
 
     const { categorias, monedas, medidas } = useCatalogos();
-    const router = useRouter();
 
     const onSubmit = handleSubmit(async () => {
       const idInversionState: number = Number(sessionStorage.getItem('state-id-inversion'));
+
+      const actividadesPost = props.actividadesSocios?.map((actividadSocio) => {
+        return {
+          socio: actividadSocio.socio,
+          cantidad: actividadSocio.cantidad,
+          monto: actividadSocio.monto,
+          fecha: actividadSocio.fecha,
+          tipoActividad: actividadSocio.tipoActividad,
+        };
+      });
 
       const movimientoPost: Movimiento = {
         inversion: idInversionState,
@@ -33,7 +44,7 @@ export default defineComponent({
         concepto: concepto.value,
         moneda: moneda.value,
         medida: medida.value,
-        actividades: props.actividadesSocios ?? [],
+        actividades: actividadesPost ?? [],
       };
 
       try {

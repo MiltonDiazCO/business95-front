@@ -8,6 +8,7 @@
           <th>Monto</th>
           <th>Fecha</th>
           <th>Tipo Actividad</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -17,6 +18,13 @@
           <td>{{ formatoMoneda.format(actividadSocio.monto) }}</td>
           <td>{{ actividadSocio.fecha }}</td>
           <td>{{ actividadSocio.tipoActividad }}</td>
+          <td>
+            <i
+              @click="deleteActividadSocio(actividadSocio.idActividad ?? 0)"
+              class="bi bi-trash color-principal"
+              title="Eliminar"
+            ></i>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -32,6 +40,17 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+const emit = defineEmits<{
+  (e: 'changeActividadesSocios', value: ActividadSocio[]): void;
+}>();
 
-const actividadesSocios: ActividadSocio[] = props.actividadesSocios;
+let actividadesSocios: ActividadSocio[] = props.actividadesSocios;
+
+const deleteActividadSocio = (idActividadSocio: number) => {
+  actividadesSocios = actividadesSocios.filter((actividadSocio) => {
+    return actividadSocio.idActividad !== idActividadSocio;
+  });
+
+  emit('changeActividadesSocios', actividadesSocios);
+};
 </script>

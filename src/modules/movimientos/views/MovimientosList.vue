@@ -35,7 +35,10 @@
                 <td>{{ movimiento.moneda }}</td>
                 <td>{{ movimiento.fechaUltimaActividad }}</td>
                 <td>
-                  <router-link :to="{ name: 'movimientos-actualizar' }" title="Menú de Actividades">
+                  <router-link
+                    :to="{ name: 'movimientos-actualizar' }"
+                    title="Menú de  Actividades"
+                  >
                     <i class="bi bi-arrow-left-right color-principal"></i>
                   </router-link>
                 </td>

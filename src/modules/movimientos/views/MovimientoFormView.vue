@@ -24,7 +24,10 @@
       </div>
 
       <div class="col-md-7 col-lg-7 my-2">
-        <ActividadesSociosList :actividadesSocios="actividadesSocios" />
+        <ActividadesSociosList
+          :actividadesSocios="actividadesSocios"
+          @changeActividadesSocios="refreshActividadesSocios"
+        />
       </div>
     </div>
   </div>
@@ -43,6 +46,17 @@ const route = useRoute();
 const actividadesSocios = ref<ActividadSocio[]>([]);
 
 const addActividadSocio = (actividadSocio: ActividadSocio) => {
-  actividadesSocios.value.push(actividadSocio);
+  actividadesSocios.value.push({
+    idActividad: actividadesSocios.value.length + 1,
+    socio: actividadSocio.socio,
+    cantidad: actividadSocio.cantidad,
+    monto: actividadSocio.monto,
+    fecha: actividadSocio.fecha,
+    tipoActividad: actividadSocio.tipoActividad,
+  });
+};
+
+const refreshActividadesSocios = (actividadesNuevas: ActividadSocio[]) => {
+  actividadesSocios.value = actividadesNuevas;
 };
 </script>
