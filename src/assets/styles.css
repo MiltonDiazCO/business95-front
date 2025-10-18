@@ -4,22 +4,34 @@
   --color-texto-alternativo: #ffffff;
 }
 
-.btn-purple {
+.color-principal {
+  color: var(--color-principal)
+}
+
+.color-alternativo {
+  color: var(--color-alternativo);
+}
+
+.color-texto-alternativo {
+  color: var(--color-texto-alternativo);
+}
+
+.btn-principal {
   background-color: var(--color-principal);
   color: var(--color-texto-alternativo);
 }
 
-.btn-purple:hover {
+.btn-principal:hover {
   background: var(--color-alternativo);
   color: var(--color-texto-alternativo);
 }
 
-.btn-purple-outline {
+.btn-principal-outline {
   border-color: var(--color-principal);
   color: var(--color-principal);
 }
 
-.btn-purple-outline:hover {
+.btn-principal-outline:hover {
   background-color: var(--color-principal);
   color: var(--color-texto-alternativo);
 }

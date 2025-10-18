@@ -4,7 +4,7 @@
       <div class="col">
         <router-link
           :to="{ name: 'movimientos-crear', state: { idInversion: props.idInversion } }"
-          class="btn btn-purple mt-2"
+          class="btn btn-principal mt-2"
         >
           Nuevo Movimiento <i class="bi bi-plus-circle-fill"></i>
         </router-link>
@@ -21,6 +21,7 @@
                 <th scope="col" class="text-end">Balance</th>
                 <th scope="col">Moneda</th>
                 <th scope="col">Fecha Última Actividad</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -33,6 +34,11 @@
                 <td class="text-end">{{ formatoMoneda.format(movimiento.balanceMovimiento) }}</td>
                 <td>{{ movimiento.moneda }}</td>
                 <td>{{ movimiento.fechaUltimaActividad }}</td>
+                <td>
+                  <router-link :to="{ name: 'movimientos-actualizar' }" title="Menú de Actividades">
+                    <i class="bi bi-arrow-left-right color-principal"></i>
+                  </router-link>
+                </td>
               </tr>
             </tbody>
           </table>

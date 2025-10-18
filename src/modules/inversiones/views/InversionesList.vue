@@ -26,7 +26,7 @@
                     :to="{ name: 'movimientos', params: { idInversion: inversion.idInversion } }"
                     title="Movimientos"
                   >
-                    <i class="bi bi-clipboard"></i>
+                    <i class="bi bi-journal-text color-principal"></i>
                   </router-link>
                 </td>
               </tr>

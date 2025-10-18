@@ -27,7 +27,7 @@
           </div>
 
           <div class="d-grid">
-            <button type="submit" class="btn btn-purple">Ingresar</button>
+            <button type="submit" class="btn btn-principal">Ingresar</button>
           </div>
         </form>
       </div>

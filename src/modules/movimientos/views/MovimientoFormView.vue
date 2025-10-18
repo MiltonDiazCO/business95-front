@@ -13,11 +13,11 @@
             v-if="route.name === 'movimientos-crear'"
             type="submit"
             form="form-movimientos"
-            class="btn btn-sm btn-purple me-1"
+            class="btn btn-sm btn-principal me-1"
           >
             Guardar <i class="bi bi-floppy"></i>
           </button>
-          <button type="submit" form="form-actividades" class="btn btn-sm btn-purple">
+          <button type="submit" form="form-actividades" class="btn btn-sm btn-principal">
             Agregar Actividad <i class="bi bi-plus-lg"></i>
           </button>
         </div>
