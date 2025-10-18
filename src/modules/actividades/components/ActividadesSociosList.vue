@@ -57,6 +57,9 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
+          <h1 class="modal-title fs-5" id="actividadesFormModal">
+            {{ props.tituloModalFormActividades }}
+          </h1>
           <button
             type="button"
             class="btn-close"
@@ -83,6 +86,7 @@ import { formatoMoneda } from '@/common/utils/formato.moneda';
 
 interface Props {
   actividadesSocios: ActividadSocio[];
+  tituloModalFormActividades: string;
 }
 
 const props = defineProps<Props>();

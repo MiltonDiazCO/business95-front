@@ -26,6 +26,7 @@
       <div class="col-md-7 col-lg-7 my-2">
         <ActividadesSociosList
           :actividadesSocios="actividadesSocios"
+          :tituloModalFormActividades="tituloModalActividades"
           @changeActividadesSocios="refreshActividadesSocios"
         />
       </div>
@@ -42,6 +43,9 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
+
+const tituloModalActividades =
+  route.name !== 'movimientos-crear' ? 'Nueva Actividad' : 'Modificar Actividad';
 
 const actividadesSocios = ref<ActividadSocio[]>([]);
 
