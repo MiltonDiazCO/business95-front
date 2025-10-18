@@ -21,7 +21,8 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const logout = () => {
-  localStorage.removeItem('socio-token-temporal');
+  localStorage.clear();
+  sessionStorage.clear();
   router.push({ name: 'login' });
 };
 </script>
