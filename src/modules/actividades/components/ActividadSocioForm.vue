@@ -56,8 +56,17 @@
 import { useCatalogos } from '@/common/composables/useCatalogos';
 import { useForm } from 'vee-validate';
 import type { ActividadSocio } from '../interfaces/actividad.socio.interface';
+import { watch } from 'vue';
+
+interface Props {
+  actividadSocio?: ActividadSocio;
+}
+
+const props = defineProps<Props>();
 
 const { handleSubmit, defineField, resetForm } = useForm();
+
+const { tipoActividades } = useCatalogos();
 
 const [socio] = defineField('socio');
 const [cantidad] = defineField('cantidad');
@@ -65,7 +74,19 @@ const [monto] = defineField('monto');
 const [fechaHora] = defineField('fechaHora');
 const [tipoActividad] = defineField('tipo-actividad');
 
-const { tipoActividades } = useCatalogos();
+watch(
+  () => props.actividadSocio,
+  (actividadActualizar) => {
+    if (actividadActualizar) {
+      socio.value = actividadActualizar.socio;
+      cantidad.value = actividadActualizar.cantidad;
+      monto.value = actividadActualizar.monto;
+      fechaHora.value = actividadActualizar.fecha;
+      tipoActividad.value = actividadActualizar.tipoActividad;
+    }
+  },
+  { immediate: true },
+);
 
 const emit = defineEmits<{
   (e: 'actividadSocio', value: ActividadSocio): void;

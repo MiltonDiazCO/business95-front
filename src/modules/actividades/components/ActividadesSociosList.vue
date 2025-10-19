@@ -27,6 +27,7 @@
               data-bs-target="#actividadesFormModal"
               style="border-color: transparent"
               title="Modificar"
+              @click="obtenerActividadPorId(actividadSocio.idActividad ?? 0)"
             >
               <i class="bi bi-pencil-square color-principal"></i>
             </button>
@@ -68,11 +69,11 @@
           ></button>
         </div>
         <div class="modal-body">
-          <ActividadSocioForm />
+          <ActividadSocioForm :actividad-socio="actividadSeleccionada" />
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-principal">Guardar</button>
+          <button type="submit" form="form-actividades" class="btn btn-principal">Guardar</button>
         </div>
       </div>
     </div>
@@ -83,6 +84,7 @@
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import ActividadSocioForm from '@/modules/actividades/components/ActividadSocioForm.vue';
 import { formatoMoneda } from '@/common/utils/formato.moneda';
+import { ref } from 'vue';
 
 interface Props {
   actividadesSocios: ActividadSocio[];
@@ -102,5 +104,13 @@ const deleteActividadSocio = (idActividadSocio: number) => {
       return actividadSocio.idActividad !== idActividadSocio;
     }),
   );
+};
+
+const actividadSeleccionada = ref<ActividadSocio>();
+
+const obtenerActividadPorId = (idActividad: number) => {
+  actividadSeleccionada.value = props.actividadesSocios.find((actividadSocio) => {
+    return actividadSocio.idActividad === idActividad;
+  });
 };
 </script>
