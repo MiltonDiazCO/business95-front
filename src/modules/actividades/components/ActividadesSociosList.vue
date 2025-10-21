@@ -95,6 +95,7 @@ const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'changeActividadesSocios', value: ActividadSocio[]): void;
+  (e: 'changeFocusForm', value: string): void;
 }>();
 
 const deleteActividadSocio = (idActividadSocio: number) => {
@@ -112,5 +113,7 @@ const obtenerActividadPorId = (idActividad: number) => {
   actividadSeleccionada.value = props.actividadesSocios.find((actividadSocio) => {
     return actividadSocio.idActividad === idActividad;
   });
+
+  emit('changeFocusForm', 'Modal');
 };
 </script>

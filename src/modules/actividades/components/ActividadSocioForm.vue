@@ -101,6 +101,8 @@ const onSubmit = handleSubmit(() => {
     tipoActividad: tipoActividad.value,
   };
 
+  console.log(actividad);
+
   emit('actividadSocio', actividad);
 
   resetForm();

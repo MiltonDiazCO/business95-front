@@ -6,7 +6,11 @@
           v-if="route.name === 'movimientos-crear'"
           :actividadesSocios="actividadesSocios"
         />
-        <ActividadSocioForm @actividadSocio="addActividadSocio" class="border rounded mt-3 p-2" />
+        <ActividadSocioForm
+          v-if="focusFormActividades === 'MovimientoForm'"
+          @actividadSocio="addActividadSocio"
+          class="border rounded mt-3 p-2"
+        />
 
         <div class="col mt-2">
           <button
@@ -28,6 +32,7 @@
           :actividadesSocios="actividadesSocios"
           :tituloModalFormActividades="tituloModalActividades"
           @changeActividadesSocios="refreshActividadesSocios"
+          @changeFocusForm="refreshFocusFormActividades"
         />
       </div>
     </div>
@@ -62,5 +67,11 @@ const addActividadSocio = (actividadSocio: ActividadSocio) => {
 
 const refreshActividadesSocios = (actividadesNuevas: ActividadSocio[]) => {
   actividadesSocios.value = actividadesNuevas;
+};
+
+const focusFormActividades = ref('MovimientoForm');
+
+const refreshFocusFormActividades = (page: string) => {
+  focusFormActividades.value = page;
 };
 </script>
