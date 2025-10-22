@@ -1,5 +1,5 @@
 export interface ActividadSocio {
-  idActividad?: number;
+  idActividad?: number | string;
   socio: number;
   cantidad: number;
   monto: number;

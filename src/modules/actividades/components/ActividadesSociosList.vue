@@ -98,7 +98,7 @@ const emit = defineEmits<{
   (e: 'changeFocusForm', value: string): void;
 }>();
 
-const deleteActividadSocio = (idActividadSocio: number) => {
+const deleteActividadSocio = (idActividadSocio: number | string) => {
   emit(
     'changeActividadesSocios',
     props.actividadesSocios.filter((actividadSocio) => {
@@ -109,7 +109,7 @@ const deleteActividadSocio = (idActividadSocio: number) => {
 
 const actividadSeleccionada = ref<ActividadSocio>();
 
-const obtenerActividadPorId = (idActividad: number) => {
+const obtenerActividadPorId = (idActividad: number | string) => {
   actividadSeleccionada.value = props.actividadesSocios.find((actividadSocio) => {
     return actividadSocio.idActividad === idActividad;
   });
