@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="actividadSocio in actividadesSocios" :key="actividadSocio.tipoActividad">
+        <tr v-for="actividadSocio in actividadesSocios" :key="actividadSocio.idActividad">
           <td>{{ actividadSocio.socio }}</td>
           <td>{{ actividadSocio.cantidad }}</td>
           <td>{{ formatoMoneda.format(actividadSocio.monto) }}</td>
@@ -47,42 +47,16 @@
     </table>
   </div>
 
-  <!-- Modal -->
-  <div
-    class="modal fade"
-    id="actividadesFormModal"
-    tabindex="-1"
-    aria-labelledby="actividadesFormModalLabel"
-    aria-hidden="true"
-  >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="actividadesFormModal">
-            {{ props.tituloModalFormActividades }}
-          </h1>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Cerrar"
-          ></button>
-        </div>
-        <div class="modal-body">
-          <ActividadSocioForm :actividad-socio="actividadSeleccionada" />
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" form="form-actividades" class="btn btn-principal">Guardar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <ActividadesModalForm
+    titulo="Modificar Actividad"
+    :actividad-socio="actividadSeleccionada"
+    @close-modal="closeModal"
+  />
 </template>
 
 <script lang="ts" setup>
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
-import ActividadSocioForm from '@/modules/actividades/components/ActividadSocioForm.vue';
+import ActividadesModalForm from './ActividadesModalForm.vue';
 import { formatoMoneda } from '@/common/utils/formato.moneda';
 import { ref } from 'vue';
 
@@ -94,13 +68,13 @@ interface Props {
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  (e: 'changeActividadesSocios', value: ActividadSocio[]): void;
+  (e: 'refreshActividadesSocios', value: ActividadSocio[]): void;
   (e: 'changeFocusForm', value: string): void;
 }>();
 
 const deleteActividadSocio = (idActividadSocio: number | string) => {
   emit(
-    'changeActividadesSocios',
+    'refreshActividadesSocios',
     props.actividadesSocios.filter((actividadSocio) => {
       return actividadSocio.idActividad !== idActividadSocio;
     }),
@@ -115,5 +89,9 @@ const obtenerActividadPorId = (idActividad: number | string) => {
   });
 
   emit('changeFocusForm', 'Modal');
+};
+
+const closeModal = (visibilidad: string) => {
+  emit('changeFocusForm', visibilidad);
 };
 </script>

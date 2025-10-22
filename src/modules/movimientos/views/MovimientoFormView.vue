@@ -7,7 +7,7 @@
           :actividadesSocios="actividadesSocios"
         />
         <ActividadSocioForm
-          v-if="focusFormActividades === 'MovimientoForm'"
+          v-if="focusFormActividades !== 'Modal'"
           @actividadSocio="addActividadSocio"
           class="border rounded mt-3 p-2"
         />
@@ -31,7 +31,7 @@
         <ActividadesSociosList
           :actividadesSocios="actividadesSocios"
           :tituloModalFormActividades="tituloModalActividades"
-          @changeActividadesSocios="refreshActividadesSocios"
+          @refreshActividadesSocios="refreshActividadesSocios"
           @changeFocusForm="refreshFocusFormActividades"
         />
       </div>
