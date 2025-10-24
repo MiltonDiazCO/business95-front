@@ -33,7 +33,15 @@
           >
             Cerrar
           </button>
-          <button type="submit" form="form-actividades" class="btn btn-principal">Guardar</button>
+          <button
+            @click="changeFocusFormActividades"
+            type="submit"
+            form="form-actividades"
+            class="btn btn-principal"
+            data-bs-dismiss="modal"
+          >
+            Guardar
+          </button>
         </div>
       </div>
     </div>
@@ -55,5 +63,9 @@ const emit = defineEmits<{ (e: 'closeModal', value: string): void }>();
 
 const closeModal = () => {
   emit('closeModal', 'none');
+};
+
+const changeFocusFormActividades = () => {
+  setTimeout(() => emit('closeModal', 'none'), 1);
 };
 </script>
