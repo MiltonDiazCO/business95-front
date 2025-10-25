@@ -14,7 +14,6 @@
             {{ props.titulo }}
           </h1>
           <button
-            @click="closeModal"
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
@@ -25,16 +24,8 @@
           <ActividadSocioForm :actividad-socio="props.actividadSocio" />
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           <button
-            @click="closeModal"
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-          >
-            Cerrar
-          </button>
-          <button
-            @click="changeFocusFormActividades"
             type="submit"
             form="form-actividades"
             class="btn btn-principal"
@@ -58,14 +49,4 @@ interface Props {
 }
 
 const props = defineProps<Props>();
-
-const emit = defineEmits<{ (e: 'closeModal', value: string): void }>();
-
-const closeModal = () => {
-  emit('closeModal', 'none');
-};
-
-const changeFocusFormActividades = () => {
-  setTimeout(() => emit('closeModal', 'none'), 1);
-};
 </script>

@@ -47,11 +47,7 @@
     </table>
   </div>
 
-  <ActividadesModalForm
-    titulo="Modificar Actividad"
-    :actividad-socio="actividadSeleccionada"
-    @close-modal="closeModal"
-  />
+  <ActividadesModalForm titulo="Modificar Actividad" :actividad-socio="actividadSeleccionada" />
 </template>
 
 <script lang="ts" setup>
@@ -69,7 +65,6 @@ const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (e: 'refreshActividadesSocios', value: ActividadSocio[]): void;
-  (e: 'changeFocusForm', value: string): void;
 }>();
 
 const deleteActividadSocio = (idActividadSocio: number | string) => {
@@ -87,11 +82,5 @@ const obtenerActividadPorId = (idActividad: number | string) => {
   actividadSeleccionada.value = props.actividadesSocios.find((actividadSocio) => {
     return actividadSocio.idActividad === idActividad;
   });
-
-  emit('changeFocusForm', 'Modal');
-};
-
-const closeModal = (visibilidad: string) => {
-  emit('changeFocusForm', visibilidad);
 };
 </script>
