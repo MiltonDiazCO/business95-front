@@ -16,10 +16,10 @@
             <tbody>
               <tr v-for="inversion in inversiones" :key="inversion.idInversion">
                 <td scope="row">{{ inversion.inversion }}</td>
-                <td class="text-end">{{ formatoMoneda.format(inversion.ingresos) }}</td>
-                <td class="text-end">{{ formatoMoneda.format(inversion.gastos) }}</td>
+                <td class="text-end">{{ formatoDecimal().format(inversion.ingresos) }}</td>
+                <td class="text-end">{{ formatoDecimal().format(inversion.gastos) }}</td>
                 <td class="text-end">
-                  {{ formatoMoneda.format(inversion.balanceInversion) }}
+                  {{ formatoDecimal().format(inversion.balanceInversion) }}
                 </td>
                 <td class="text-center">
                   <router-link
@@ -41,7 +41,7 @@
 <script lang="ts" setup>
 import { getInversionesPorSocio } from '@/common/services/inversion-service';
 import { useQuery } from '@tanstack/vue-query';
-import { formatoMoneda } from '@/common/utils/formato.moneda';
+import { formatoDecimal } from '@/common/utils/formato.moneda';
 
 const idSocio = localStorage.getItem('socio-token-temporal');
 

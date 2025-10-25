@@ -17,9 +17,7 @@
                 <th scope="col">Categoria</th>
                 <th scope="col">Concepto</th>
                 <th scope="col" class="text-end">Cantidad</th>
-                <th scope="col">Medida</th>
                 <th scope="col" class="text-end">Balance</th>
-                <th scope="col">Moneda</th>
                 <th scope="col">Fecha Última Actividad</th>
                 <th></th>
               </tr>
@@ -29,16 +27,24 @@
                 <td scope="row" class="text-center">{{ movimiento.idMovimiento }}</td>
                 <td>{{ movimiento.categoria }}</td>
                 <td>{{ movimiento.concepto }}</td>
-                <td class="text-end">{{ movimiento.cantidadMovimiento }}</td>
-                <td>{{ movimiento.medida }}</td>
-                <td class="text-end">{{ formatoMoneda.format(movimiento.balanceMovimiento) }}</td>
-                <td>{{ movimiento.moneda }}</td>
+                <td class="text-end">
+                  {{ movimiento.cantidadMovimiento }} {{ movimiento.medida }}
+                </td>
+                <td class="text-end">
+                  {{ formatoDecimal().format(movimiento.balanceMovimiento) }}
+                  {{ movimiento.moneda }}
+                </td>
                 <td>{{ movimiento.fechaUltimaActividad }}</td>
-                <td>
-                  <router-link
-                    :to="{ name: 'movimientos-actualizar' }"
-                    title="Menú de  Actividades"
+                <td class="text-center">
+                  <button
+                    type="button"
+                    class="bg-transparent border-0 me-2"
+                    title="Modificar Detalle del Movimiento"
                   >
+                    <i class="bi bi-pencil-square color-principal"></i>
+                  </button>
+
+                  <router-link :to="{ name: 'movimientos-actualizar' }" title="Menú de Actividades">
                     <i class="bi bi-arrow-left-right color-principal"></i>
                   </router-link>
                 </td>
@@ -52,7 +58,7 @@
 </template>
 
 <script lang="ts" setup>
-import { formatoMoneda } from '@/common/utils/formato.moneda';
+import { formatoDecimal } from '@/common/utils/formato.moneda';
 import { useQuery } from '@tanstack/vue-query';
 import { getMovimientosPorInversion } from '../../../common/services/movimiento-service';
 import { useRoute } from 'vue-router';

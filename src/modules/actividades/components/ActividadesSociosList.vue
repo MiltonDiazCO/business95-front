@@ -14,8 +14,14 @@
       <tbody>
         <tr v-for="actividadSocio in actividadesSocios" :key="actividadSocio.idActividad">
           <td>{{ actividadSocio.socio }}</td>
-          <td>{{ actividadSocio.cantidad }}</td>
-          <td>{{ formatoMoneda.format(actividadSocio.monto) }}</td>
+          <td>
+            {{
+              isNaN(actividadSocio.cantidad) ? 0 : formatoDecimal().format(actividadSocio.cantidad)
+            }}
+          </td>
+          <td>
+            {{ isNaN(actividadSocio.monto) ? 0 : formatoDecimal().format(actividadSocio.monto) }}
+          </td>
           <td>{{ actividadSocio.fecha }}</td>
           <td>{{ actividadSocio.tipoActividad }}</td>
           <td>
@@ -57,7 +63,7 @@
 <script lang="ts" setup>
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import ActividadesModalForm from './ActividadesModalForm.vue';
-import { formatoMoneda } from '@/common/utils/formato.moneda';
+import { formatoDecimal } from '@/common/utils/formato.moneda';
 import { ref } from 'vue';
 
 interface Props {
