@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="onSubmit" id="form-actividades">
+  <form @submit.prevent="onSubmit" :id="props.idForm">
     <div class="row">
       <div class="col mb-1">
         <label for="socio" class="form-label">Socio</label>
@@ -56,8 +56,10 @@
 import { useCatalogos } from '@/common/composables/useCatalogos';
 import { useForm } from 'vee-validate';
 import type { ActividadSocio } from '../interfaces/actividad.socio.interface';
+import { watch } from 'vue';
 
 interface Props {
+  idForm: string;
   actividadSocio?: ActividadSocio;
 }
 
@@ -73,14 +75,28 @@ const [monto] = defineField('monto');
 const [fechaHora] = defineField('fechaHora');
 const [tipoActividad] = defineField('tipo-actividad');
 
+watch(
+  () => props.actividadSocio,
+  (actividad) => {
+    if (actividad) {
+      socio.value = props.actividadSocio?.socio;
+      cantidad.value = props.actividadSocio?.cantidad;
+      monto.value = props.actividadSocio?.monto;
+      fechaHora.value = props.actividadSocio?.fecha;
+      tipoActividad.value = props.actividadSocio?.tipoActividad;
+    }
+  },
+);
+
 socio.value = props.actividadSocio?.socio;
 
 const emit = defineEmits<{
-  (e: 'actividadSocio', value: ActividadSocio): void;
+  (e: 'send-actividad-socio', value: ActividadSocio): void;
 }>();
 
 const onSubmit = handleSubmit(() => {
   const actividad: ActividadSocio = {
+    idActividad: props.actividadSocio?.idActividad,
     socio: socio.value,
     cantidad: cantidad.value,
     monto: monto.value,
@@ -88,10 +104,7 @@ const onSubmit = handleSubmit(() => {
     tipoActividad: tipoActividad.value,
   };
 
-  console.log(actividad);
-
-  emit('actividadSocio', actividad);
-
+  emit('send-actividad-socio', actividad);
   resetForm();
 });
 </script>

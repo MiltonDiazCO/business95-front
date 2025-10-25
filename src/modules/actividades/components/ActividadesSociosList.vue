@@ -47,7 +47,11 @@
     </table>
   </div>
 
-  <ActividadesModalForm titulo="Modificar Actividad" :actividad-socio="actividadSeleccionada" />
+  <ActividadesModalForm
+    titulo="Modificar Actividad"
+    :actividad-socio="actividadSeleccionada"
+    @send-actividad-socio="updateActividadById"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -58,23 +62,9 @@ import { ref } from 'vue';
 
 interface Props {
   actividadesSocios: ActividadSocio[];
-  tituloModalFormActividades: string;
 }
 
 const props = defineProps<Props>();
-
-const emit = defineEmits<{
-  (e: 'refreshActividadesSocios', value: ActividadSocio[]): void;
-}>();
-
-const deleteActividadSocio = (idActividadSocio: number | string) => {
-  emit(
-    'refreshActividadesSocios',
-    props.actividadesSocios.filter((actividadSocio) => {
-      return actividadSocio.idActividad !== idActividadSocio;
-    }),
-  );
-};
 
 const actividadSeleccionada = ref<ActividadSocio>();
 
@@ -82,5 +72,33 @@ const obtenerActividadPorId = (idActividad: number | string) => {
   actividadSeleccionada.value = props.actividadesSocios.find((actividadSocio) => {
     return actividadSocio.idActividad === idActividad;
   });
+};
+
+const emit = defineEmits<{
+  (e: 'send-actividades-socios', value: ActividadSocio[]): void;
+}>();
+
+const updateActividadById = (actividadSocio: ActividadSocio) => {
+  emit(
+    'send-actividades-socios',
+    props.actividadesSocios.map((actividad) => {
+      if (actividad.idActividad === actividadSocio.idActividad) {
+        return {
+          ...actividadSocio,
+        };
+      } else {
+        return actividad;
+      }
+    }),
+  );
+};
+
+const deleteActividadSocio = (idActividadSocio: number | string) => {
+  emit(
+    'send-actividades-socios',
+    props.actividadesSocios.filter((actividadSocio) => {
+      return actividadSocio.idActividad !== idActividadSocio;
+    }),
+  );
 };
 </script>

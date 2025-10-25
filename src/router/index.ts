@@ -27,12 +27,12 @@ const router = createRouter({
         {
           path: 'movimientos/crear',
           name: 'movimientos-crear',
-          component: () => import('@/modules/movimientos/views/MovimientoFormView.vue'),
+          component: () => import('@/modules/movimientos/views/MovimientoCreateView.vue'),
         },
         {
           path: 'movimientos/actualizar',
           name: 'movimientos-actualizar',
-          component: () => import('@/modules/movimientos/views/MovimientoFormView.vue'),
+          component: () => import('@/modules/movimientos/views/MovimientoCreateView.vue'),
         },
       ],
     },

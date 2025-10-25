@@ -2,12 +2,19 @@
   <div class="container-fluid">
     <div class="row mx-1">
       <div class="col-md-5 col-lg-5 border rounded my-2 p-2">
+        <!-- Columna Izquierda -->
         <MovimientoForm
           v-if="route.name === 'movimientos-crear'"
           :actividadesSocios="actividadesSocios"
         />
-        <ActividadSocioForm @actividadSocio="addActividadSocio" class="border rounded mt-3 p-2" />
 
+        <ActividadSocioForm
+          idForm="form-actividades"
+          @send-actividad-socio="addActividadSocio"
+          class="border rounded mt-3 p-2"
+        />
+
+        <!-- Botones -->
         <div class="col mt-2">
           <button
             v-if="route.name === 'movimientos-crear'"
@@ -15,19 +22,20 @@
             form="form-movimientos"
             class="btn btn-sm btn-principal me-1"
           >
-            Guardar <i class="bi bi-floppy"></i>
+            Guardar y Salir <i class="bi bi-floppy"></i>
           </button>
+
           <button type="submit" form="form-actividades" class="btn btn-sm btn-principal">
             Agregar Actividad <i class="bi bi-plus-lg"></i>
           </button>
         </div>
       </div>
 
+      <!-- Columan Derecha -->
       <div class="col-md-7 col-lg-7 my-2">
         <ActividadesSociosList
           :actividadesSocios="actividadesSocios"
-          :tituloModalFormActividades="tituloModalActividades"
-          @refreshActividadesSocios="refreshActividadesSocios"
+          @send-actividades-socios="refreshActividadesSocios"
         />
       </div>
     </div>
@@ -44,23 +52,16 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
-const tituloModalActividades =
-  route.name !== 'movimientos-crear' ? 'Nueva Actividad' : 'Modificar Actividad';
-
 const actividadesSocios = ref<ActividadSocio[]>([]);
 
 const addActividadSocio = (actividadSocio: ActividadSocio) => {
   actividadesSocios.value.push({
-    idActividad: actividadesSocios.value.length + 1,
-    socio: actividadSocio.socio,
-    cantidad: actividadSocio.cantidad,
-    monto: actividadSocio.monto,
-    fecha: actividadSocio.fecha,
-    tipoActividad: actividadSocio.tipoActividad,
+    ...actividadSocio,
+    idActividad: 'S' + Date.now(),
   });
 };
 
-const refreshActividadesSocios = (actividadesNuevas: ActividadSocio[]) => {
-  actividadesSocios.value = actividadesNuevas;
+const refreshActividadesSocios = (actividadesActualizadas: ActividadSocio[]) => {
+  actividadesSocios.value = actividadesActualizadas;
 };
 </script>

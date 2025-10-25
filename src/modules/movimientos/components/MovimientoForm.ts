@@ -26,8 +26,10 @@ export default defineComponent({
     const { categorias, monedas, medidas } = useCatalogos();
 
     const onSubmit = handleSubmit(async () => {
+      // Obtener ID de la inversion para el registro/modificación del movimiento
       const idInversionState: number = Number(sessionStorage.getItem('state-id-inversion'));
 
+      // Eliminar ID provisional de actividades nuevas (POST)
       const actividadesPost = props.actividadesSocios?.map((actividadSocio) => {
         return {
           socio: actividadSocio.socio,
@@ -38,6 +40,7 @@ export default defineComponent({
         };
       });
 
+      // Objeto Movimiento a enviar
       const movimientoPost: Movimiento = {
         inversion: idInversionState,
         categoria: categoria.value,
@@ -47,6 +50,7 @@ export default defineComponent({
         actividades: actividadesPost ?? [],
       };
 
+      // Enviar Movimiento al API
       try {
         await saveMovimiento(movimientoPost);
         router.replace({ name: 'movimientos', params: { idInversion: idInversionState } });
