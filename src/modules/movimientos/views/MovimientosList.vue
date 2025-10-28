@@ -40,6 +40,9 @@
                     type="button"
                     class="bg-transparent border-0 me-2"
                     title="Modificar Detalle del Movimiento"
+                    data-bs-toggle="modal"
+                    data-bs-target="#movimiento-form-modal"
+                    @click="idMovimiento = movimiento.idMovimiento"
                   >
                     <i class="bi bi-pencil-square color-principal"></i>
                   </button>
@@ -55,15 +58,20 @@
       </div>
     </div>
   </div>
+
+  <MovimientoModalForm :id-movimiento="idMovimiento" @send-update-status="receiveUpdateStatus" />
 </template>
 
 <script lang="ts" setup>
 import { formatoDecimal } from '@/common/utils/formato.moneda';
 import { useQuery } from '@tanstack/vue-query';
-import { getMovimientosPorInversion } from '../../../common/services/movimiento-service';
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { getMovimientosPorInversion } from '../../../common/services/movimiento-service';
+import MovimientoModalForm from '../components/MovimientoModalForm.vue';
 
 const route = useRoute();
+const idMovimiento = ref(0);
 
 sessionStorage.setItem('state-id-inversion', String(route.params.idInversion));
 
@@ -73,10 +81,16 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const { data: movimientos = [] } = useQuery({
+const { data: movimientos = [], refetch } = useQuery({
   queryKey: ['movimientos'],
   queryFn: async () => {
     return await getMovimientosPorInversion(props.idInversion);
   },
 });
+
+const receiveUpdateStatus = (status: string) => {
+  if (status.toLowerCase().includes('OK'.toLowerCase())) {
+    refetch();
+  }
+};
 </script>

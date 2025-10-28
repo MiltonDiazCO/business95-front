@@ -5,7 +5,25 @@ import type { Movimiento } from '@/modules/movimientos/interfaces/movimiento.int
 
 export const saveMovimiento = async (movimiento: Movimiento) => {
   try {
-    const { data } = await b95Api.post<Movimiento>('/movimientos', movimiento);
+    const { data } = await b95Api.post<Movimiento>(`/movimientos`, movimiento);
+    return data;
+  } catch (error) {
+    throw handleAxiosError(error);
+  }
+};
+
+export const updateMovimiento = async (idMovimiento: number, movimiento: Movimiento) => {
+  try {
+    const { data } = await b95Api.put<Movimiento>(`/movimientos/${idMovimiento}`, movimiento);
+    return data;
+  } catch (error) {
+    throw handleAxiosError(error);
+  }
+};
+
+export const getMovimientoById = async (idMovimiento: number) => {
+  try {
+    const { data } = await b95Api.get<Movimiento>(`movimientos/${idMovimiento}`);
     return data;
   } catch (error) {
     throw handleAxiosError(error);

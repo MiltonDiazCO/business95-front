@@ -1,20 +1,32 @@
 import { useCatalogos } from '@/common/composables/useCatalogos';
 import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
-import { saveMovimiento } from '@/common/services/movimiento-service';
+import {
+  getMovimientoById,
+  saveMovimiento,
+  updateMovimiento,
+} from '@/common/services/movimiento-service';
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import { useForm } from 'vee-validate';
-import { defineComponent, type PropType } from 'vue';
-import type { Movimiento } from '../interfaces/movimiento.interface';
+import { defineComponent, watch, type PropType } from 'vue';
 import { useRouter } from 'vue-router';
+import type { Movimiento } from '../interfaces/movimiento.interface';
 
 export default defineComponent({
   props: {
+    idMovimiento: {
+      type: Number,
+      required: false,
+    },
     actividadesSocios: {
       type: Array as PropType<ActividadSocio[]>,
+      required: false,
     },
   },
-  setup(props) {
+  emits: ['send-update-status'],
+  setup(props, { emit }) {
     const router = useRouter();
+
+    const { categorias, monedas, medidas } = useCatalogos();
 
     const { handleSubmit, defineField } = useForm();
 
@@ -23,14 +35,25 @@ export default defineComponent({
     const [moneda] = defineField('moneda');
     const [medida] = defineField('medida');
 
-    const { categorias, monedas, medidas } = useCatalogos();
+    watch(
+      () => props.idMovimiento,
+      async (idMovimiento) => {
+        if (idMovimiento) {
+          const movimiento = await getMovimientoById(idMovimiento);
+          categoria.value = movimiento.idCategoria;
+          concepto.value = movimiento.concepto;
+          moneda.value = movimiento.idMoneda;
+          medida.value = movimiento.idMedida;
+        }
+      },
+    );
 
     const onSubmit = handleSubmit(async () => {
       // Obtener ID de la inversion para el registro/modificación del movimiento
       const idInversionState: number = Number(sessionStorage.getItem('state-id-inversion'));
 
       // Eliminar ID provisional de actividades nuevas (POST)
-      const actividadesPost = props.actividadesSocios?.map((actividadSocio) => {
+      const actividadesSendAPI = props.actividadesSocios?.map((actividadSocio) => {
         return {
           socio: actividadSocio.socio,
           cantidad: actividadSocio.cantidad,
@@ -41,19 +64,24 @@ export default defineComponent({
       });
 
       // Objeto Movimiento a enviar
-      const movimientoPost: Movimiento = {
+      const movimientoSendAPI: Movimiento = {
         inversion: idInversionState,
         categoria: categoria.value,
         concepto: concepto.value,
         moneda: moneda.value,
         medida: medida.value,
-        actividades: actividadesPost ?? [],
+        actividades: actividadesSendAPI ?? [],
       };
 
       // Enviar Movimiento al API
       try {
-        await saveMovimiento(movimientoPost);
-        router.replace({ name: 'movimientos', params: { idInversion: idInversionState } });
+        if (!props.idMovimiento) {
+          await saveMovimiento(movimientoSendAPI);
+          router.replace({ name: 'movimientos', params: { idInversion: idInversionState } });
+        } else {
+          await updateMovimiento(Number(props.idMovimiento), movimientoSendAPI);
+          emit('send-update-status', 'update-movimiento-ok');
+        }
       } catch (error: unknown) {
         const errorApi = error as ErrorB95Api;
         errorApi.errores.forEach((error) => {

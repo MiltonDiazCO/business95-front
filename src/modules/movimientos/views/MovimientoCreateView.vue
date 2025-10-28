@@ -3,10 +3,7 @@
     <div class="row mx-1">
       <div class="col-md-5 col-lg-5 border rounded my-2 p-2">
         <!-- Columna Izquierda -->
-        <MovimientoForm
-          v-if="route.name === 'movimientos-crear'"
-          :actividadesSocios="actividadesSocios"
-        />
+        <MovimientoForm :actividadesSocios="actividadesSocios" />
 
         <ActividadSocioForm
           idForm="form-actividades"
@@ -16,12 +13,7 @@
 
         <!-- Botones -->
         <div class="col mt-2">
-          <button
-            v-if="route.name === 'movimientos-crear'"
-            type="submit"
-            form="form-movimientos"
-            class="btn btn-sm btn-principal me-1"
-          >
+          <button type="submit" form="form-movimientos" class="btn btn-sm btn-principal me-1">
             Guardar y Salir <i class="bi bi-floppy"></i>
           </button>
 
@@ -48,9 +40,6 @@ import ActividadSocioForm from '@/modules/actividades/components/ActividadSocioF
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import MovimientoForm from '@/modules/movimientos/components/MovimientoForm.vue';
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
-
-const route = useRoute();
 
 const actividadesSocios = ref<ActividadSocio[]>([]);
 
