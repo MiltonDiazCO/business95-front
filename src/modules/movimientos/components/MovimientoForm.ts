@@ -8,7 +8,7 @@ import {
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import { useForm } from 'vee-validate';
 import { defineComponent, watch, type PropType } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import type { Movimiento } from '../interfaces/movimiento.interface';
 
 export default defineComponent({
@@ -24,6 +24,7 @@ export default defineComponent({
   },
   emits: ['send-update-status'],
   setup(props, { emit }) {
+    const route = useRoute();
     const router = useRouter();
 
     const { categorias, monedas, medidas } = useCatalogos();
@@ -35,15 +36,25 @@ export default defineComponent({
     const [moneda] = defineField('moneda');
     const [medida] = defineField('medida');
 
+    const fillMovimientoForm = async (idMovimiento: number) => {
+      const movimiento = await getMovimientoById(idMovimiento);
+      categoria.value = movimiento.idCategoria;
+      concepto.value = movimiento.concepto;
+      moneda.value = movimiento.idMoneda;
+      medida.value = movimiento.idMedida;
+    };
+
+    // Completa el formulario de creación a partir de un registro existente por ID
+    if (route.name === 'movimientos-copiar') {
+      fillMovimientoForm(Number(sessionStorage.getItem('state-id-movimiento-copiar')));
+    }
+
+    // rellenar formulario de edición
     watch(
       () => props.idMovimiento,
       async (idMovimiento) => {
         if (idMovimiento) {
-          const movimiento = await getMovimientoById(idMovimiento);
-          categoria.value = movimiento.idCategoria;
-          concepto.value = movimiento.concepto;
-          moneda.value = movimiento.idMoneda;
-          medida.value = movimiento.idMedida;
+          fillMovimientoForm(idMovimiento);
         }
       },
     );
@@ -75,6 +86,7 @@ export default defineComponent({
 
       // Enviar Movimiento al API
       try {
+        // Guardar cuando el idMovimiento de las props es null
         if (!props.idMovimiento) {
           await saveMovimiento(movimientoSendAPI);
           router.replace({ name: 'movimientos', params: { idInversion: idInversionState } });

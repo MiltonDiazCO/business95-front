@@ -2,10 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col">
-        <router-link
-          :to="{ name: 'movimientos-crear', state: { idInversion: props.idInversion } }"
-          class="btn btn-principal mt-2"
-        >
+        <router-link :to="{ name: 'movimientos-crear' }" class="btn btn-principal mt-2">
           Nuevo Movimiento <i class="bi bi-plus-circle-fill"></i>
         </router-link>
 
@@ -35,10 +32,10 @@
                   {{ movimiento.moneda }}
                 </td>
                 <td>{{ movimiento.fechaUltimaActividad }}</td>
-                <td class="text-center">
+                <td class="text-center p-1">
                   <button
                     type="button"
-                    class="bg-transparent border-0 me-2"
+                    class="bg-transparent border-0"
                     title="Modificar Detalle del Movimiento"
                     data-bs-toggle="modal"
                     data-bs-target="#movimiento-form-modal"
@@ -47,7 +44,16 @@
                     <i class="bi bi-pencil-square color-principal"></i>
                   </button>
 
-                  <router-link :to="{ name: 'movimientos-actualizar' }" title="Menú de Actividades">
+                  <router-link
+                    @click.prevent="getMovimientoParaCopiar(movimiento.idMovimiento)"
+                    :to="{ name: 'movimientos-copiar' }"
+                    class="mx-2"
+                    title="Copiar Movimiento"
+                  >
+                    <i class="bi bi-copy color-principal"></i>
+                  </router-link>
+
+                  <router-link :to="{ name: 'movimientos-crear' }" title="Menú de Actividades">
                     <i class="bi bi-arrow-left-right color-principal"></i>
                   </router-link>
                 </td>
@@ -80,6 +86,10 @@ interface Props {
 }
 
 const props = defineProps<Props>();
+
+const getMovimientoParaCopiar = (idMovimientoParaCopiar: number) => {
+  sessionStorage.setItem('state-id-movimiento-copiar', String(idMovimientoParaCopiar));
+};
 
 const { data: movimientos = [], refetch } = useQuery({
   queryKey: ['movimientos'],

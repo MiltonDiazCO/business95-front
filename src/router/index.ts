@@ -30,8 +30,8 @@ const router = createRouter({
           component: () => import('@/modules/movimientos/views/MovimientoCreateView.vue'),
         },
         {
-          path: 'movimientos/actualizar',
-          name: 'movimientos-actualizar',
+          path: 'movimientos/copiar',
+          name: 'movimientos-copiar',
           component: () => import('@/modules/movimientos/views/MovimientoCreateView.vue'),
         },
       ],
