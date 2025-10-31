@@ -57,9 +57,12 @@ import { useCatalogos } from '@/common/composables/useCatalogos';
 import { useForm } from 'vee-validate';
 import type { ActividadSocio } from '../interfaces/actividad.socio.interface';
 import { watch } from 'vue';
+import { updateActividades } from '@/common/services/actividad-service';
+import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
 
 interface Props {
   idForm: string;
+  idMovimiento?: number;
   actividadSocio?: ActividadSocio;
 }
 
@@ -79,11 +82,11 @@ watch(
   () => props.actividadSocio,
   (actividad) => {
     if (actividad) {
-      socio.value = props.actividadSocio?.socio;
+      socio.value = props.actividadSocio?.idSocio;
       cantidad.value = props.actividadSocio?.cantidad;
       monto.value = props.actividadSocio?.monto;
       fechaHora.value = props.actividadSocio?.fecha;
-      tipoActividad.value = props.actividadSocio?.tipoActividad;
+      tipoActividad.value = props.actividadSocio?.idTipoActividad;
     }
   },
 );
@@ -94,15 +97,28 @@ const emit = defineEmits<{
   (e: 'send-actividad-socio', value: ActividadSocio): void;
 }>();
 
-const onSubmit = handleSubmit(() => {
+const onSubmit = handleSubmit(async () => {
   const actividad: ActividadSocio = {
     idActividad: props.actividadSocio?.idActividad,
+    idSocio: socio.value,
     socio: socio.value,
     cantidad: cantidad.value,
     monto: monto.value,
     fecha: fechaHora.value,
+    idTipoActividad: tipoActividad.value,
     tipoActividad: tipoActividad.value,
   };
+
+  if (
+    actividad.idActividad &&
+    !String(actividad.idActividad).toLowerCase().includes('S'.toLowerCase())
+  ) {
+    try {
+      await updateActividades(Number(props.idMovimiento), [actividad]);
+    } catch (error) {
+      console.log((error as ErrorB95Api).errores);
+    }
+  }
 
   emit('send-actividad-socio', actividad);
   resetForm();

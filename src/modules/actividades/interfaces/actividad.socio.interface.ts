@@ -1,8 +1,10 @@
 export interface ActividadSocio {
   idActividad?: number | string;
-  socio: number;
+  idSocio: number;
+  socio?: string;
   cantidad: number;
   monto: number;
   fecha: string;
-  tipoActividad: number;
+  idTipoActividad: number;
+  tipoActividad?: string;
 }

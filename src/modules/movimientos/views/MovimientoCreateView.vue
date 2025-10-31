@@ -1,8 +1,8 @@
 <template>
   <div class="container-fluid">
     <div class="row mx-1">
+      <!-- Columna Izquierda -->
       <div class="col-md-5 col-lg-5 border rounded my-2 p-2">
-        <!-- Columna Izquierda -->
         <MovimientoForm :actividadesSocios="actividadesSocios" />
 
         <ActividadSocioForm

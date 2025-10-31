@@ -34,6 +34,12 @@ const router = createRouter({
           name: 'movimientos-copiar',
           component: () => import('@/modules/movimientos/views/MovimientoCreateView.vue'),
         },
+        {
+          path: 'movimientos/:idMovimiento/actividades',
+          name: 'actividades',
+          component: () => import('@/modules/actividades/views/ActividadesDashboard.vue'),
+          props: (route) => ({ idMovimiento: Number(route.params.idMovimiento) }),
+        },
       ],
     },
     {

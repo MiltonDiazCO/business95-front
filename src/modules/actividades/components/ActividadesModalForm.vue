@@ -25,6 +25,7 @@
         <div class="modal-body">
           <ActividadSocioForm
             id-form="form-actividades-modal"
+            :id-movimiento="props.idMovimiento"
             :actividad-socio="props.actividadSocio"
             @send-actividad-socio="sendActividadSocio"
           />
@@ -52,6 +53,7 @@ import ActividadSocioForm from '@/modules/actividades/components/ActividadSocioF
 import type { ActividadSocio } from '../interfaces/actividad.socio.interface';
 
 interface Props {
+  idMovimiento?: number;
   actividadSocio?: ActividadSocio;
 }
 

@@ -53,7 +53,10 @@
                     <i class="bi bi-copy color-principal"></i>
                   </router-link>
 
-                  <router-link :to="{ name: 'movimientos-crear' }" title="Menú de Actividades">
+                  <router-link
+                    :to="{ name: 'actividades', params: { idMovimiento: movimiento.idMovimiento } }"
+                    title="Menú de Actividades"
+                  >
                     <i class="bi bi-arrow-left-right color-principal"></i>
                   </router-link>
                 </td>

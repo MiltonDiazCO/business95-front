@@ -66,11 +66,13 @@ export default defineComponent({
       // Eliminar ID provisional de actividades nuevas (POST)
       const actividadesSendAPI = props.actividadesSocios?.map((actividadSocio) => {
         return {
-          socio: actividadSocio.socio,
+          idSocio: actividadSocio.idSocio,
+          socio: String(actividadSocio.idSocio),
           cantidad: actividadSocio.cantidad,
           monto: actividadSocio.monto,
           fecha: actividadSocio.fecha,
-          tipoActividad: actividadSocio.tipoActividad,
+          idTipoActividad: actividadSocio.idTipoActividad,
+          tipoActividad: String(actividadSocio.tipoActividad),
         };
       });
 

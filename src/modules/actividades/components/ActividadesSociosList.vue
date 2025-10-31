@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr v-for="actividadSocio in actividadesSocios" :key="actividadSocio.idActividad">
-          <td>{{ actividadSocio.socio }}</td>
+          <td>{{ actividadSocio.idSocio }}</td>
           <td>
             {{
               isNaN(actividadSocio.cantidad) ? 0 : formatoDecimal().format(actividadSocio.cantidad)
@@ -23,7 +23,7 @@
             {{ isNaN(actividadSocio.monto) ? 0 : formatoDecimal().format(actividadSocio.monto) }}
           </td>
           <td>{{ actividadSocio.fecha }}</td>
-          <td>{{ actividadSocio.tipoActividad }}</td>
+          <td>{{ actividadSocio.idTipoActividad }}</td>
           <td>
             <!-- Button de activar modal -->
             <button
@@ -55,6 +55,7 @@
 
   <ActividadesModalForm
     titulo="Modificar Actividad"
+    :id-movimiento="props.idMovimiento"
     :actividad-socio="actividadSeleccionada"
     @send-actividad-socio="updateActividadById"
   />
@@ -67,6 +68,7 @@ import { formatoDecimal } from '@/common/utils/formato.moneda';
 import { ref } from 'vue';
 
 interface Props {
+  idMovimiento?: number;
   actividadesSocios: ActividadSocio[];
 }
 
