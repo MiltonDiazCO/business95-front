@@ -99,6 +99,7 @@ const updateActividadById = (actividadSocio: ActividadSocio) => {
       }
     }),
   );
+  actividadSeleccionada.value = undefined;
 };
 
 const deleteActividadSocio = (idActividadSocio: number | string) => {

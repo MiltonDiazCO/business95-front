@@ -54,11 +54,11 @@
 
 <script lang="ts" setup>
 import { useCatalogos } from '@/common/composables/useCatalogos';
-import { useForm } from 'vee-validate';
-import type { ActividadSocio } from '../interfaces/actividad.socio.interface';
-import { watch } from 'vue';
-import { updateActividades } from '@/common/services/actividad-service';
 import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
+import { saveActividades } from '@/common/services/actividad-service';
+import { useForm } from 'vee-validate';
+import { watch } from 'vue';
+import type { ActividadSocio } from '../interfaces/actividad.socio.interface';
 
 interface Props {
   idForm: string;
@@ -110,11 +110,11 @@ const onSubmit = handleSubmit(async () => {
   };
 
   if (
-    actividad.idActividad &&
+    props.idMovimiento &&
     !String(actividad.idActividad).toLowerCase().includes('S'.toLowerCase())
   ) {
     try {
-      await updateActividades(Number(props.idMovimiento), [actividad]);
+      await saveActividades(Number(props.idMovimiento), [actividad]);
     } catch (error) {
       console.log((error as ErrorB95Api).errores);
     }

@@ -3,12 +3,13 @@ import type { Movimiento } from '@/modules/movimientos/interfaces/movimiento.int
 import { handleAxiosError } from '../utils/handle.axios.error';
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 
-export const updateActividades = async (
+export const saveActividades = async (
   idMovimiento: number,
   actividadesSocios: ActividadSocio[],
 ) => {
   try {
-    const data = await b95Api.put<ActividadSocio[]>(
+    const method = actividadesSocios[0]?.idActividad ? 'put' : 'post';
+    const data = await b95Api[method]<ActividadSocio[]>(
       `movimientos/${idMovimiento}/actividades`,
       actividadesSocios,
     );
