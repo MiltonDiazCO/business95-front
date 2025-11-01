@@ -19,6 +19,14 @@ export const saveActividades = async (
   }
 };
 
+export const deleteActividades = async (idMovimiento: number, idActividades: number[]) => {
+  try {
+    await b95Api.delete(`movimientos/${idMovimiento}/actividades`, { data: idActividades });
+  } catch (error) {
+    handleAxiosError(error);
+  }
+};
+
 export const getActividadesPorMovimiento = async (idMovimiento: number) => {
   try {
     const {

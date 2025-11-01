@@ -66,6 +66,8 @@ import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.
 import ActividadesModalForm from './ActividadesModalForm.vue';
 import { formatoDecimal } from '@/common/utils/formato.moneda';
 import { ref } from 'vue';
+import { deleteActividades } from '@/common/services/actividad-service';
+import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
 
 interface Props {
   idMovimiento?: number;
@@ -102,7 +104,15 @@ const updateActividadById = (actividadSocio: ActividadSocio) => {
   actividadSeleccionada.value = undefined;
 };
 
-const deleteActividadSocio = (idActividadSocio: number | string) => {
+const deleteActividadSocio = async (idActividadSocio: number | string) => {
+  if (!String(idActividadSocio).toLowerCase().includes('s'.toLowerCase())) {
+    try {
+      await deleteActividades(Number(props.idMovimiento), [Number(idActividadSocio)]);
+    } catch (error) {
+      console.log((error as ErrorB95Api).errores);
+    }
+  }
+
   emit(
     'send-actividades-socios',
     props.actividadesSocios.filter((actividadSocio) => {
