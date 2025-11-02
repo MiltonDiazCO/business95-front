@@ -11,8 +11,12 @@
       <tbody>
         <tr v-for="balance in props.balancesSocios" :key="balance.socio">
           <td class="text-start">{{ balance.socio }}</td>
-          <td>{{ balance.cantidadSocio }}</td>
-          <td>{{ balance.balanceSocio }}</td>
+          <td>
+            {{ formatoDecimal().format(balance.cantidadSocio) }} {{ detalleMovimiento?.medida }}
+          </td>
+          <td>
+            {{ formatoDecimal().format(balance.balanceSocio) }} {{ detalleMovimiento?.moneda }}
+          </td>
         </tr>
       </tbody>
     </table>
@@ -20,6 +24,7 @@
 </template>
 
 <script lang="ts" setup>
+import { formatoDecimal } from '@/common/utils/formato.moneda';
 import type {
   BalanceSocio,
   MovimientoBalancesSocios,
