@@ -3,7 +3,8 @@
     <div class="row">
       <!-- Columna Izquierda -->
       <div class="col-md-5 col-lg-5">
-        <div class="table-responsive text-center"></div>
+        <!-- Gráfico de Barras -->
+        <PieGraph :chart-data="chartData" />
       </div>
 
       <!-- Columan Derecha -->
@@ -37,7 +38,7 @@
                 aria-selected="false"
                 class="nav-link"
               >
-                Balances
+                Balances Ampliados
               </button>
             </li>
           </ul>
@@ -104,14 +105,16 @@
 </style>
 
 <script lang="ts" setup>
+import PieGraph from '@/common/components/BarGraph.vue';
 import {
   getActividadesPorMovimiento,
   getBalanceSociosPorMovimiento,
 } from '@/common/services/actividad-service';
+import BalancesPorMovimiento from '@/modules/socios/components/BalancesPorMovimiento.vue';
 import { useQuery } from '@tanstack/vue-query';
+import { computed } from 'vue';
 import ActividadesModalForm from '../components/ActividadesModalForm.vue';
 import ActividadesSociosList from '../components/ActividadesSociosList.vue';
-import BalancesPorMovimiento from '@/modules/socios/components/BalancesPorMovimiento.vue';
 
 interface Props {
   idMovimiento: number;
@@ -137,4 +140,20 @@ const refetchData = () => {
   refetchActividades();
   refetchBalances();
 };
+
+const chartData = computed(() => {
+  const balances = movimientoConBalances.value?.balances ?? [];
+
+  return {
+    labels: balances.map((balance) => balance.socio),
+    datasets: [
+      {
+        label: 'Participación Monetaria por Socio',
+        data: balances.map((balance) => balance.balanceSocio),
+        backgroundColor: ['#6656C6', '#7A6FD6', '#9787E7', '#B5A9F0', '#D3CCFA'],
+        borderColor: '#4E42A0',
+      },
+    ],
+  };
+});
 </script>
