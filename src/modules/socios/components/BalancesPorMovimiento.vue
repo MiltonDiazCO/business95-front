@@ -18,6 +18,17 @@
             {{ formatoDecimal().format(balance.balanceSocio) }} {{ detalleMovimiento?.moneda }}
           </td>
         </tr>
+        <tr>
+          <td></td>
+          <td>
+            {{ formatoDecimal().format(Number(detalleMovimiento?.cantidadMovimiento)) }}
+            {{ detalleMovimiento?.medida }}
+          </td>
+          <td>
+            {{ formatoDecimal().format(Number(detalleMovimiento?.balanceMovimiento)) }}
+            {{ detalleMovimiento?.moneda }}
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
