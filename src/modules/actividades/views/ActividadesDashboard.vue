@@ -1,10 +1,20 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row mx-1">
       <!-- Columna Izquierda -->
-      <div class="col-md-5 col-lg-5">
-        <!-- Gráfico de Barras -->
-        <PieGraph :chart-data="chartData" />
+      <div class="col-md-5 col-lg-5 border rounded my-2 p-2" style="height: fit-content">
+        <!-- Formulario de Actividades -->
+        <ActividadSocioForm
+          id-form="form-actividades"
+          :id-movimiento="props.idMovimiento"
+          @send-actividad-socio="refetchData()"
+        />
+
+        <div class="col mt-2">
+          <button type="submit" form="form-actividades" class="btn btn-principal">
+            Agregar Actividad <i class="bi bi-plus-circle-fill"></i>
+          </button>
+        </div>
       </div>
 
       <!-- Columan Derecha -->
@@ -38,7 +48,7 @@
                 aria-selected="false"
                 class="nav-link"
               >
-                Balances Ampliados
+                Balances
               </button>
             </li>
           </ul>
@@ -53,15 +63,6 @@
             aria-labelledby="tab-actividades-socios"
             class="tab-pane show active"
           >
-            <button
-              type="button"
-              class="btn btn-principal mb-2"
-              data-bs-toggle="modal"
-              data-bs-target="#actividadesFormModal"
-            >
-              Nueva Actividad <i class="bi bi-plus-circle-fill"></i>
-            </button>
-
             <ActividadesSociosList
               id="actividades"
               :id-movimiento="props.idMovimiento"
@@ -86,12 +87,6 @@
       </div>
     </div>
   </div>
-
-  <ActividadesModalForm
-    titulo="Agregar Actividad"
-    :id-movimiento="props.idMovimiento"
-    @send-actividad-socio="refetchData()"
-  />
 </template>
 
 <style scoped>
@@ -105,16 +100,14 @@
 </style>
 
 <script lang="ts" setup>
-import PieGraph from '@/common/components/BarGraph.vue';
 import {
   getActividadesPorMovimiento,
   getBalanceSociosPorMovimiento,
 } from '@/common/services/actividad-service';
 import BalancesPorMovimiento from '@/modules/socios/components/BalancesPorMovimiento.vue';
 import { useQuery } from '@tanstack/vue-query';
-import { computed } from 'vue';
-import ActividadesModalForm from '../components/ActividadesModalForm.vue';
 import ActividadesSociosList from '../components/ActividadesSociosList.vue';
+import ActividadSocioForm from '../components/ActividadSocioForm.vue';
 
 interface Props {
   idMovimiento: number;
@@ -140,20 +133,4 @@ const refetchData = () => {
   refetchActividades();
   refetchBalances();
 };
-
-const chartData = computed(() => {
-  const balances = movimientoConBalances.value?.balances ?? [];
-
-  return {
-    labels: balances.map((balance) => balance.socio),
-    datasets: [
-      {
-        label: 'Participación Monetaria por Socio',
-        data: balances.map((balance) => balance.balanceSocio),
-        backgroundColor: ['#6656C6', '#7A6FD6', '#9787E7', '#B5A9F0', '#D3CCFA'],
-        borderColor: '#4E42A0',
-      },
-    ],
-  };
-});
 </script>
