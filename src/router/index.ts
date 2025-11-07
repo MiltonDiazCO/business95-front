@@ -10,7 +10,7 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/inversiones',
+      redirect: { name: 'mi-perfil' },
       component: () => import('@/modules/layout/views/MainView.vue'),
       children: [
         {
@@ -67,7 +67,7 @@ router.beforeEach(
     if (!socioToken && to.name !== 'login') {
       next({ name: 'login' });
     } else if (socioToken && to.name === 'login') {
-      next({ name: 'inversiones' });
+      next({ name: 'mi-perfil' });
     } else {
       next();
     }

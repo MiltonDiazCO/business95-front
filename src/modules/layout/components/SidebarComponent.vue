@@ -3,7 +3,7 @@
     <div class="offcanvas-body px-0">
       <ul class="navbar-nav fs-5">
         <li class="navbar-item p-3 py-md-1">
-          <router-link to="" class="nav-link">Mi Perfil</router-link>
+          <router-link :to="{ name: 'mi-perfil' }" class="nav-link">Mi Perfil</router-link>
         </li>
 
         <li class="navbar-item p-3 py-md-1">

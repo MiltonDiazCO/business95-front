@@ -74,7 +74,7 @@ const login = handleSubmit(async () => {
     const { data: socio } = await getSocio(Number(idSocio.value));
     if (socio) {
       localStorage.setItem('socio-token-temporal', socio.idSocio.toString());
-      router.push({ name: 'inversiones' });
+      router.push('/');
     }
   } catch (error: unknown) {
     const errorApi = error as ErrorB95Api;
