@@ -14,6 +14,11 @@ const router = createRouter({
       component: () => import('@/modules/layout/views/MainView.vue'),
       children: [
         {
+          path: 'mi-perfil',
+          name: 'mi-perfil',
+          component: () => import('@/modules/mi-perfil/views/SocioDashboard.vue'),
+        },
+        {
           path: 'inversiones',
           name: 'inversiones',
           component: () => import('@/modules/inversiones/views/InversionesList.vue'),
