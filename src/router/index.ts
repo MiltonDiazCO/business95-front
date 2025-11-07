@@ -11,7 +11,7 @@ const router = createRouter({
     {
       path: '/',
       redirect: '/inversiones',
-      component: () => import('@/modules/dashboard/views/DashboardView.vue'),
+      component: () => import('@/modules/layout/views/MainView.vue'),
       children: [
         {
           path: 'inversiones',
