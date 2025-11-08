@@ -64,7 +64,7 @@
       </div>
 
       <!-- Columna Derecha -->
-      <div class="col-md-6 col-lg-6 mt-2 mt-md-0">
+      <div class="col-md-6 col-lg-6 mt-2 mt-md-0 px-0 px-md-3">
         <h4>Balances Anuales</h4>
         <BalancesAnualesPorSocio :balances="balanceSocio?.balances ?? []" />
       </div>
