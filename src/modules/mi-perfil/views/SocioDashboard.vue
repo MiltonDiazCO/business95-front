@@ -1,13 +1,22 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-6 col-lg-6">
+    <div class="row mx-1 my-2">
+      <!-- Columna Izquierda -->
+      <div class="col-md-6 col-lg-6 border rounded p-2">
         <div>
           <CardBalanceSocio :balance-socio="balanceSocio" />
         </div>
+
+        <h4 class="mt-3">Gráfico de Balances Anuales</h4>
         <div>
           <StackedBarGraph :chart-data="chartData" />
         </div>
+      </div>
+
+      <!-- Columna Derecha -->
+      <div class="col-md-6 col-lg-6 mt-2 mt-md-0">
+        <h4>Balances Anuales</h4>
+        <BalancesAnualesPorSocio :balances="balanceSocio?.balances ?? []" />
       </div>
     </div>
   </div>
@@ -19,6 +28,7 @@ import { useQuery } from '@tanstack/vue-query';
 import { computed } from 'vue';
 import CardBalanceSocio from '../components/CardBalanceSocio.vue';
 import StackedBarGraph from '@/common/components/StackedBarGraph.vue';
+import BalancesAnualesPorSocio from '@/modules/socios/components/BalancesAnualesPorSocio.vue';
 
 const idSocio = localStorage.getItem('socio-token-temporal');
 
@@ -43,7 +53,7 @@ const chartData = computed(() => {
       {
         label: 'Gastos',
         data: balancesAnuales.map((balance) => balance.gastos),
-        backgroundColor: '#EF5350',
+        backgroundColor: '#E57373',
       },
     ],
   };
