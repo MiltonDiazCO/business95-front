@@ -1,16 +1,25 @@
 <template>
-  <div class="card" style="width: 18rem">
+  <div class="card">
     <div class="card-body">
-      <h5 class="card-title">{{ props.balanceSocio?.socio }}</h5>
-      <p class="card-text"><strong>Ingresos: </strong> {{ props.balanceSocio?.ingresos }}</p>
-      <p><strong>Gastos: </strong> {{ props.balanceSocio?.gastos }}</p>
-      <p><strong>Balance: </strong> {{ props.balanceSocio?.balanceSocio }}</p>
+      <h4 class="card-title">Bienvenido {{ props.balanceSocio?.socio }}</h4>
+      <p class="text-body-secondary"><strong>Este es tu balance general</strong></p>
+      <p>
+        <strong>Ingresos: </strong>
+        {{ formatoDecimal().format(Number(props.balanceSocio?.ingresos)) }}
+        <br />
+        <strong>Gastos: </strong>
+        {{ formatoDecimal().format(Number(props.balanceSocio?.gastos)) }}
+        <br />
+        <strong>Balance: </strong>
+        {{ formatoDecimal().format(Number(props.balanceSocio?.balanceSocio)) }}
+      </p>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { BalanceSocio } from '../interfaces/balance.socio';
+import { formatoDecimal } from '@/common/utils/formato.moneda';
 
 interface Props {
   balanceSocio?: BalanceSocio;
