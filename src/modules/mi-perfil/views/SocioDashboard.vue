@@ -2,17 +2,23 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-6 col-lg-6">
-        <LineGraph :chart-data="chartData" />
+        <div>
+          <CardBalanceSocio :balance-socio="balanceSocio" />
+        </div>
+        <div>
+          <StackedBarGraph :chart-data="chartData" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import LineGraph from '@/common/components/LineGraph.vue';
 import { getBalancesSocio } from '@/common/services/socio-service';
 import { useQuery } from '@tanstack/vue-query';
 import { computed } from 'vue';
+import CardBalanceSocio from '../components/CardBalanceSocio.vue';
+import StackedBarGraph from '@/common/components/StackedBarGraph.vue';
 
 const idSocio = localStorage.getItem('socio-token-temporal');
 
@@ -30,22 +36,14 @@ const chartData = computed(() => {
     labels: balancesAnuales.map((balance) => balance.annio),
     datasets: [
       {
-        label: 'Balance Anual',
-        data: balancesAnuales.map((balance) => balance.balanceAnual),
-        borderColor: 'blue',
-        borderWidth: 2,
-      },
-      {
         label: 'Ingresos',
         data: balancesAnuales.map((balance) => balance.ingresos),
-        borderColor: 'green',
-        borderWidth: 2,
+        backgroundColor: '#4CAF50',
       },
       {
         label: 'Gastos',
         data: balancesAnuales.map((balance) => balance.gastos),
-        borderColor: 'red',
-        borderWidth: 2,
+        backgroundColor: '#EF5350',
       },
     ],
   };
