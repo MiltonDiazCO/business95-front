@@ -7,9 +7,59 @@
           <CardBalanceSocio :balance-socio="balanceSocio" />
         </div>
 
-        <h4 class="mt-3">Gráfico de Balances Anuales</h4>
-        <div>
-          <StackedBarGraph :chart-data="chartData" />
+        <h4 class="mt-3">Tu Resumen</h4>
+
+        <!-- Menú Tabs -->
+        <div class="mb-3">
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item">
+              <button
+                type="button"
+                role="tab"
+                data-bs-toggle="tab"
+                id="btn-tab-stackbarchar"
+                data-bs-target="#tab-stackbarchar"
+                aria-controls="tab-stackbarchar"
+                aria-selected="true"
+                class="nav-link active"
+              >
+                Gráfico 1
+              </button>
+            </li>
+
+            <li class="nav-item">
+              <button
+                type="button"
+                role="tab"
+                data-bs-toggle="tab"
+                id="btn-tab-bar"
+                data-bs-target="#tab-bar"
+                aria-controls="tab-bar"
+                aria-selected="false"
+                class="nav-link"
+              >
+                Gráfico 2
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contenido Tabs -->
+        <div class="tab-content" id="content-tab">
+          <!-- StackedBarGraph -->
+          <div
+            id="tab-stackbarchar"
+            role="tabpanel"
+            aria-labelledby="tab-stackbarchar"
+            class="tab-pane show active"
+          >
+            <StackedBarGraph :chart-data="chartData" />
+          </div>
+
+          <!-- BarGraph -->
+          <div id="tab-bar" role="tabpanel" aria-labelledby="tab-bar" class="tab-pane">
+            <BarGraph :chart-data="chartData" />
+          </div>
         </div>
       </div>
 
@@ -22,13 +72,24 @@
   </div>
 </template>
 
+<style scoped>
+.nav-link {
+  color: #000;
+}
+
+.nav-link.active {
+  color: var(--color-principal);
+}
+</style>
+
 <script lang="ts" setup>
+import BarGraph from '@/common/components/BarGraph.vue';
+import StackedBarGraph from '@/common/components/StackedBarGraph.vue';
 import { getBalancesSocio } from '@/common/services/socio-service';
+import BalancesAnualesPorSocio from '@/modules/socios/components/BalancesAnualesPorSocio.vue';
 import { useQuery } from '@tanstack/vue-query';
 import { computed } from 'vue';
 import CardBalanceSocio from '../components/CardBalanceSocio.vue';
-import StackedBarGraph from '@/common/components/StackedBarGraph.vue';
-import BalancesAnualesPorSocio from '@/modules/socios/components/BalancesAnualesPorSocio.vue';
 
 const idSocio = localStorage.getItem('socio-token-temporal');
 
