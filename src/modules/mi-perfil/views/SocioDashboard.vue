@@ -17,13 +17,28 @@
                 type="button"
                 role="tab"
                 data-bs-toggle="tab"
-                id="btn-tab-stackbarchar"
-                data-bs-target="#tab-stackbarchar"
-                aria-controls="tab-stackbarchar"
+                id="btn-tab-line"
+                data-bs-target="#tab-line"
+                aria-controls="tab-line"
                 aria-selected="true"
                 class="nav-link active"
               >
                 Gráfico 1
+              </button>
+            </li>
+
+            <li class="nav-item">
+              <button
+                type="button"
+                role="tab"
+                data-bs-toggle="tab"
+                id="btn-tab-stackbarchar"
+                data-bs-target="#tab-stackbarchar"
+                aria-controls="tab-stackbarchar"
+                aria-selected="false"
+                class="nav-link"
+              >
+                Gráfico 2
               </button>
             </li>
 
@@ -38,7 +53,7 @@
                 aria-selected="false"
                 class="nav-link"
               >
-                Gráfico 2
+                Gráfico 3
               </button>
             </li>
           </ul>
@@ -46,12 +61,22 @@
 
         <!-- Contenido Tabs -->
         <div class="tab-content" id="content-tab">
+          <!-- Gráfico linear -->
+          <div
+            id="tab-line"
+            role="tabpanel"
+            aria-labelledby="tab-line"
+            class="tab-pane show active"
+          >
+            <LineGraph :chart-data="chartLineData" />
+          </div>
+
           <!-- StackedBarGraph -->
           <div
             id="tab-stackbarchar"
             role="tabpanel"
             aria-labelledby="tab-stackbarchar"
-            class="tab-pane show active"
+            class="tab-pane"
           >
             <StackedBarGraph :chart-data="chartData" />
           </div>
@@ -84,6 +109,7 @@
 
 <script lang="ts" setup>
 import BarGraph from '@/common/components/BarGraph.vue';
+import LineGraph from '@/common/components/LineGraph.vue';
 import StackedBarGraph from '@/common/components/StackedBarGraph.vue';
 import { getBalancesSocio } from '@/common/services/socio-service';
 import BalancesAnualesPorSocio from '@/modules/socios/components/BalancesAnualesPorSocio.vue';
@@ -100,23 +126,32 @@ const { data: balanceSocio } = useQuery({
   },
 });
 
-const chartData = computed(() => {
-  const balancesAnuales = balanceSocio.value?.balances ?? [];
+const balancesAnuales = computed(() => balanceSocio.value?.balances ?? []);
 
-  return {
-    labels: balancesAnuales.map((balance) => balance.annio),
-    datasets: [
-      {
-        label: 'Ingresos',
-        data: balancesAnuales.map((balance) => balance.ingresos),
-        backgroundColor: '#4CAF50',
-      },
-      {
-        label: 'Gastos',
-        data: balancesAnuales.map((balance) => balance.gastos),
-        backgroundColor: '#E57373',
-      },
-    ],
-  };
-});
+const chartLineData = computed(() => ({
+  labels: balancesAnuales.value?.map((balance) => balance.annio),
+  datasets: [
+    {
+      label: 'Balance General',
+      data: balancesAnuales.value.map((balance) => balance.balanceAnual),
+      backgroundColor: '#4CAF50',
+    },
+  ],
+}));
+
+const chartData = computed(() => ({
+  labels: balancesAnuales.value.map((balance) => balance.annio),
+  datasets: [
+    {
+      label: 'Ingresos',
+      data: balancesAnuales.value.map((balance) => balance.ingresos),
+      backgroundColor: '#4CAF50',
+    },
+    {
+      label: 'Gastos',
+      data: balancesAnuales.value.map((balance) => balance.gastos),
+      backgroundColor: '#E57373',
+    },
+  ],
+}));
 </script>
