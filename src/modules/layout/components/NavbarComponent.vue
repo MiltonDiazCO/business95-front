@@ -16,13 +16,14 @@
 </template>
 
 <script lang="ts" setup>
+import { useAuthStore } from '@/modules/auth/stores/auth.store';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const logout = () => {
-  localStorage.clear();
-  sessionStorage.clear();
+const logout = async () => {
+  const authStore = useAuthStore();
+  await authStore.logout();
   router.push({ name: 'login' });
 };
 </script>

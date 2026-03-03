@@ -43,12 +43,10 @@ import { getInversionesPorSocio } from '@/common/services/inversion-service';
 import { useQuery } from '@tanstack/vue-query';
 import { formatoDecimal } from '@/common/utils/formato.moneda';
 
-const idSocio = localStorage.getItem('socio-token-temporal');
-
 const { data: inversiones = [] } = useQuery({
   queryKey: ['inversiones'],
   queryFn: async () => {
-    return await getInversionesPorSocio(Number(idSocio));
+    return await getInversionesPorSocio();
   },
 });
 </script>

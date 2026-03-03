@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/modules/auth/stores/auth.store';
 import {
   createRouter,
   createWebHistory,
@@ -61,17 +62,20 @@ const router = createRouter({
 });
 
 router.beforeEach(
-  (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
-    const socioToken = localStorage.getItem('socio-token-temporal');
+  async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
+    
+    const authStore = useAuthStore();
+    await authStore.verificarEstadoDeAutenticacion();
+    const estadoDeAutenticacion = authStore.estadoDeAutenticacion;
 
-    if (!socioToken && to.name !== 'login') {
+    if (estadoDeAutenticacion !== 'AUTENTICADO' && to.name !== 'login') {
       next({ name: 'login' });
-    } else if (socioToken && to.name === 'login') {
+    } else if (estadoDeAutenticacion === 'AUTENTICADO' && to.name === 'login') {
       next({ name: 'mi-perfil' });
     } else {
       next();
     }
-  },
-);
+    
+  });
 
 export default router;

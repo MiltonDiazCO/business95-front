@@ -12,9 +12,9 @@ export const getSocio = async (idSocio: number) => {
   }
 };
 
-export const getBalancesSocio = async (idSocio: number) => {
+export const getBalancesSocio = async () => {
   try {
-    const { data } = await b95Api.get<BalanceSocio>(`/socios/${idSocio}/balance`);
+    const { data } = await b95Api.get<BalanceSocio>(`/socios/balance`);
     return data;
   } catch (error) {
     throw handleAxiosError(error);

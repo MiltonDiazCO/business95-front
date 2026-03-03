@@ -11,19 +11,24 @@
         <!-- Formulario -->
         <form @submit.prevent="login">
           <div class="mb-4">
-            <label for="id-socio" class="form-label">ID Socio</label>
+            <label for="correo-electronico" class="form-label">Correo Eletronico</label>
             <input
               type="text"
-              v-model="idSocio"
+              v-model="correoElectronico"
+              id="correo-electronico"
               class="form-control"
-              placeholder="Ingrese su ID"
+              placeholder="Correo Electronico"
               autofocus
-            />
-          </div>
+            /> <br>
 
-          <div>
-            <p v-if="dataError" class="alert alert-danger py-1">{{ dataError }}</p>
-            <p v-if="errors.idSocio" class="alert alert-danger py-1">{{ errors.idSocio }}</p>
+            <label for="contrasena">Contraseña</label>
+            <input
+              type="password"
+              v-model="contrasena"
+              id="contrasena"
+              class="form-control"
+              placeholder="Contraseña"
+            />
           </div>
 
           <div class="d-grid">
@@ -43,39 +48,26 @@
 
 <script lang="ts" setup>
 import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
-import { getSocio } from '@/common/services/socio-service';
 import { useForm } from 'vee-validate';
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import * as yup from 'yup';
+import { useAuthStore } from '../stores/auth.store';
 
 const router = useRouter();
 
 const dataError = ref('');
 
-const schemaValidation = yup.object({
-  idSocio: yup
-    .number()
-    .transform((value, originalValue) => (originalValue === '' ? undefined : value))
-    .required('El ID del socio es requerido.')
-    .typeError('El ID del socio debe ser numérico.'),
-});
+const { handleSubmit } = useForm({});
 
-const { handleSubmit, defineField, errors } = useForm({ validationSchema: schemaValidation });
-
-const [idSocio] = defineField('idSocio');
-
-watch(idSocio, () => {
-  dataError.value = '';
-});
+const correoElectronico = ref('');
+const contrasena = ref('');
 
 const login = handleSubmit(async () => {
+  const authStore = useAuthStore();
+
   try {
-    const { data: socio } = await getSocio(Number(idSocio.value));
-    if (socio) {
-      localStorage.setItem('socio-token-temporal', socio.idSocio.toString());
-      router.push('/');
-    }
+    await authStore.login(correoElectronico.value, contrasena.value);
+    router.push('/');
   } catch (error: unknown) {
     const errorApi = error as ErrorB95Api;
     dataError.value = errorApi?.errores?.[0] ?? 'Ha ocurrido un error';

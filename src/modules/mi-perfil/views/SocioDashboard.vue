@@ -117,12 +117,10 @@ import { useQuery } from '@tanstack/vue-query';
 import { computed } from 'vue';
 import CardBalanceSocio from '../components/CardBalanceSocio.vue';
 
-const idSocio = localStorage.getItem('socio-token-temporal');
-
 const { data: balanceSocio } = useQuery({
   queryKey: ['balance-socio'],
   queryFn: async () => {
-    return await getBalancesSocio(Number(idSocio));
+    return await getBalancesSocio();
   },
 });
 
