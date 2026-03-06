@@ -1,7 +1,7 @@
 import { b95Api } from '@/api/b95';
-import type { Socio } from '@/modules/socios/interfaces/socio.interface';
 import { handleAxiosError } from '@/common/utils/handle.axios.error';
-import type { BalanceSocio } from '@/modules/mi-perfil/interfaces/balance.socio';
+import type { BalanceSocio } from '@/modules/socios/interfaces/balance.socio.interface';
+import type { Socio } from '@/modules/socios/interfaces/socio.interface';
 
 export const getSocio = async (idSocio: number) => {
   try {

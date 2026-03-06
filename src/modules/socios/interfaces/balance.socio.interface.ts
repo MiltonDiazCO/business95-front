@@ -3,10 +3,10 @@ export interface BalanceSocio {
   ingresos: number;
   gastos: number;
   balanceSocio: number;
-  balances: BalancesAnuales[];
+  balances: BalanceAnual[];
 }
 
-export interface BalancesAnuales {
+export interface BalanceAnual {
   annio: number;
   ingresos: number;
   gastos: number;

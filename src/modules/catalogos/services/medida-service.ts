@@ -1,6 +1,6 @@
 import { b95Api } from '@/api/b95';
-import type { Medida } from '../interfaces/medida.interface';
-import { handleAxiosError } from '../utils/handle.axios.error';
+import { handleAxiosError } from '@/common/utils/handle.axios.error';
+import type { Medida } from '@/modules/catalogos/interfaces/medida.interface';
 
 export const getMedidas = async () => {
   try {

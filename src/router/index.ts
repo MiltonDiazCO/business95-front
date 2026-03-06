@@ -1,10 +1,7 @@
-import { useAuthStore } from '@/modules/auth/stores/auth.store';
-import {
-  createRouter,
-  createWebHistory,
-  type NavigationGuardNext,
-  type RouteLocationNormalized,
-} from 'vue-router';
+import autenticadoGuard from '@/modules/auth/guards/autenticado.guard';
+import noAutenticadoGuard from '@/modules/auth/guards/no-autenticado.guard';
+
+import { createRouter, createWebHistory } from 'vue-router';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,12 +9,13 @@ const router = createRouter({
     {
       path: '/',
       redirect: { name: 'mi-perfil' },
+      beforeEnter: [autenticadoGuard],
       component: () => import('@/modules/layout/views/MainView.vue'),
       children: [
         {
           path: 'mi-perfil',
           name: 'mi-perfil',
-          component: () => import('@/modules/mi-perfil/views/SocioDashboard.vue'),
+          component: () => import('@/modules/socios/views/SocioDashboard.vue'),
         },
         {
           path: 'inversiones',
@@ -51,6 +49,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
+      beforeEnter: [noAutenticadoGuard],
       component: () => import('@/modules/auth/views/LoginView.vue'),
     },
     {
@@ -60,22 +59,5 @@ const router = createRouter({
     },
   ],
 });
-
-router.beforeEach(
-  async (to: RouteLocationNormalized, from: RouteLocationNormalized, next: NavigationGuardNext) => {
-    
-    const authStore = useAuthStore();
-    await authStore.verificarEstadoDeAutenticacion();
-    const estadoDeAutenticacion = authStore.estadoDeAutenticacion;
-
-    if (estadoDeAutenticacion !== 'AUTENTICADO' && to.name !== 'login') {
-      next({ name: 'login' });
-    } else if (estadoDeAutenticacion === 'AUTENTICADO' && to.name === 'login') {
-      next({ name: 'mi-perfil' });
-    } else {
-      next();
-    }
-    
-  });
 
 export default router;

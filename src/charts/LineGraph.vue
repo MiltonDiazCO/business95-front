@@ -3,18 +3,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { Line } from 'vue-chartjs';
 import {
-  Chart as ChartJS,
   CategoryScale,
+  Chart as ChartJS,
+  Legend,
   LinearScale,
-  PointElement,
   LineElement,
+  PointElement,
   Title,
   Tooltip,
-  Legend,
 } from 'chart.js';
+import { defineComponent } from 'vue';
+import { Line } from 'vue-chartjs';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 

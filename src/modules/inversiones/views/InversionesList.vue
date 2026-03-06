@@ -39,9 +39,9 @@
 </template>
 
 <script lang="ts" setup>
-import { getInversionesPorSocio } from '@/common/services/inversion-service';
-import { useQuery } from '@tanstack/vue-query';
 import { formatoDecimal } from '@/common/utils/formato.moneda';
+import { getInversionesPorSocio } from '@/modules/inversiones/services/inversion-service';
+import { useQuery } from '@tanstack/vue-query';
 
 const { data: inversiones = [] } = useQuery({
   queryKey: ['inversiones'],

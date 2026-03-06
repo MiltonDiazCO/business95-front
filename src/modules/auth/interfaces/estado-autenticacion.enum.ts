@@ -1,0 +1,5 @@
+export enum EstadoAutenticacion {
+  AUTENTICADO = 'AUTENTICADO',
+  NO_AUTENTICADO = 'NO_AUTENTICADO',
+  VERIFICANDO = 'VERIFICANDO',
+}

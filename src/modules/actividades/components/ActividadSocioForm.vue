@@ -53,12 +53,12 @@
 </template>
 
 <script lang="ts" setup>
-import { useCatalogos } from '@/common/composables/useCatalogos';
 import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
-import { saveActividades } from '@/common/services/actividad-service';
+import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
+import { saveActividades } from '@/modules/actividades/services/actividad-service';
+import { useCatalogos } from '@/modules/catalogos/composables/useCatalogos';
 import { useForm } from 'vee-validate';
 import { watch } from 'vue';
-import type { ActividadSocio } from '../interfaces/actividad.socio.interface';
 
 interface Props {
   idForm: string;

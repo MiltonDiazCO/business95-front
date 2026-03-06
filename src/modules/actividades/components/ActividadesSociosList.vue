@@ -62,12 +62,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
-import ActividadesModalForm from './ActividadesModalForm.vue';
-import { formatoDecimal } from '@/common/utils/formato.moneda';
-import { ref } from 'vue';
-import { deleteActividades } from '@/common/services/actividad-service';
 import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
+import { formatoDecimal } from '@/common/utils/formato.moneda';
+import ActividadesModalForm from '@/modules/actividades/components/ActividadesModalForm.vue';
+import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
+import { deleteActividades } from '@/modules/actividades/services/actividad-service';
+import { ref } from 'vue';
 
 interface Props {
   idMovimiento?: number;

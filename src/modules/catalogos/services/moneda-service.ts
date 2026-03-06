@@ -1,6 +1,6 @@
 import { b95Api } from '@/api/b95';
-import type { Moneda } from '@/common/interfaces/moneda.interface';
 import { handleAxiosError } from '@/common/utils/handle.axios.error';
+import type { Moneda } from '@/modules/catalogos/interfaces/moneda.interface';
 
 export const getMonedas = async () => {
   try {

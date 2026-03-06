@@ -1,11 +1,11 @@
-import { useCatalogos } from '@/common/composables/useCatalogos';
 import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
+import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
+import { useCatalogos } from '@/modules/catalogos/composables/useCatalogos';
 import {
   getMovimientoById,
   saveMovimiento,
   updateMovimiento,
-} from '@/common/services/movimiento-service';
-import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
+} from '@/modules/catalogos/services/movimiento-service';
 import { useForm } from 'vee-validate';
 import { defineComponent, watch, type PropType } from 'vue';
 import { useRoute, useRouter } from 'vue-router';

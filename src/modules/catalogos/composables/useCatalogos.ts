@@ -1,8 +1,8 @@
-import { getCategorias } from '@/common/services/categoria-service';
-import { getMedidas } from '@/common/services/medida-service';
-import { getMonedas } from '@/common/services/moneda-service';
+import { getCategorias } from '@/modules/catalogos/services/categoria-service';
+import { getMedidas } from '@/modules/catalogos/services/medida-service';
+import { getMonedas } from '@/modules/catalogos/services/moneda-service';
+import { getTipoActividades } from '@/modules/catalogos/services/tipo-actividad-service';
 import { useQuery } from '@tanstack/vue-query';
-import { getTipoActividades } from '../services/tipo-actividad.service';
 
 export const useCatalogos = () => {
   const { data: categorias = [] } = useQuery({

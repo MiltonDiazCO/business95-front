@@ -1,6 +1,6 @@
 import { b95Api } from '@/api/b95';
-import type { TipoActividad } from '../interfaces/tipo.actividad.interface';
-import { handleAxiosError } from '../utils/handle.axios.error';
+import { handleAxiosError } from '@/common/utils/handle.axios.error';
+import type { TipoActividad } from '@/modules/catalogos/interfaces/tipo.actividad.interface';
 
 export const getTipoActividades = async () => {
   try {

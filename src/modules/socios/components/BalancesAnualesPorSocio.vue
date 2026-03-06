@@ -22,8 +22,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { BalancesAnuales } from '@/modules/mi-perfil/interfaces/balance.socio';
 import { formatoDecimal } from '@/common/utils/formato.moneda';
+import type { BalancesAnuales } from '@/modules/socios/interfaces/balance.socio.interface';
 
 interface Props {
   balances: BalancesAnuales[];

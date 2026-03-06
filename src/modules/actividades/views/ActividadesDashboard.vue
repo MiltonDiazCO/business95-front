@@ -100,14 +100,14 @@
 </style>
 
 <script lang="ts" setup>
+import ActividadesSociosList from '@/modules/actividades/components/ActividadesSociosList.vue';
+import ActividadSocioForm from '@/modules/actividades/components/ActividadSocioForm.vue';
 import {
   getActividadesPorMovimiento,
   getBalanceSociosPorMovimiento,
-} from '@/common/services/actividad-service';
+} from '@/modules/actividades/services/actividad-service';
 import BalancesPorMovimiento from '@/modules/socios/components/BalancesPorMovimiento.vue';
 import { useQuery } from '@tanstack/vue-query';
-import ActividadesSociosList from '../components/ActividadesSociosList.vue';
-import ActividadSocioForm from '../components/ActividadSocioForm.vue';
 
 interface Props {
   idMovimiento: number;

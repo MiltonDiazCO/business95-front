@@ -50,7 +50,7 @@
 
 <script lang="ts" setup>
 import ActividadSocioForm from '@/modules/actividades/components/ActividadSocioForm.vue';
-import type { ActividadSocio } from '../interfaces/actividad.socio.interface';
+import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 
 interface Props {
   idMovimiento?: number;

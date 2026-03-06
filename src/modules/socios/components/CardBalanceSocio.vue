@@ -18,8 +18,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { BalanceSocio } from '../interfaces/balance.socio';
 import { formatoDecimal } from '@/common/utils/formato.moneda';
+import type { BalanceSocio } from '@/modules/socios/interfaces/balance.socio.interface';
 
 interface Props {
   balanceSocio?: BalanceSocio;

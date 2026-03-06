@@ -108,11 +108,11 @@
 </style>
 
 <script lang="ts" setup>
-import BarGraph from '@/common/components/BarGraph.vue';
-import LineGraph from '@/common/components/LineGraph.vue';
-import StackedBarGraph from '@/common/components/StackedBarGraph.vue';
-import { getBalancesSocio } from '@/common/services/socio-service';
+import BarGraph from '@/charts/BarGraph.vue';
+import LineGraph from '@/charts/LineGraph.vue';
+import StackedBarGraph from '@/charts/StackedBarGraph.vue';
 import BalancesAnualesPorSocio from '@/modules/socios/components/BalancesAnualesPorSocio.vue';
+import { getBalancesSocio } from '@/modules/socios/services/socio-service';
 import { useQuery } from '@tanstack/vue-query';
 import { computed } from 'vue';
 import CardBalanceSocio from '../components/CardBalanceSocio.vue';
