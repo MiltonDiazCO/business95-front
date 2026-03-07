@@ -2,8 +2,8 @@ export interface BalanceSocio {
   socio: string;
   ingresos: number;
   gastos: number;
-  balanceSocio: number;
-  balances: BalanceAnual[];
+  balance: number;
+  historialAnual: BalanceAnual[];
 }
 
 export interface BalanceAnual {

@@ -7,7 +7,7 @@ export interface MovimientoBalancesSocios {
   medida: string;
   balanceMovimiento: number;
   moneda: string;
-  balances: BalanceSocio[];
+  balanceSocios: BalanceSocio[];
 }
 
 export interface BalanceSocio {

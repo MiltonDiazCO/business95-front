@@ -80,7 +80,7 @@
           >
             <BalancesPorMovimiento
               :detalle-movimiento="movimientoConBalances"
-              :balances-socios="movimientoConBalances?.balances ?? []"
+              :balances-socios="movimientoConBalances?.balanceSocios ?? []"
             />
           </div>
         </div>
@@ -102,10 +102,8 @@
 <script lang="ts" setup>
 import ActividadesSociosList from '@/modules/actividades/components/ActividadesSociosList.vue';
 import ActividadSocioForm from '@/modules/actividades/components/ActividadSocioForm.vue';
-import {
-  getActividadesPorMovimiento,
-  getBalanceSociosPorMovimiento,
-} from '@/modules/actividades/services/actividad-service';
+import { getActividadesPorMovimiento } from '@/modules/actividades/services/actividad-service';
+import { getBalanceSociosPorMovimiento } from '@/modules/movimientos/services/movimiento-service';
 import BalancesPorMovimiento from '@/modules/socios/components/BalancesPorMovimiento.vue';
 import { useQuery } from '@tanstack/vue-query';
 

@@ -3,5 +3,5 @@ export interface InversionBalance {
   inversion: string;
   ingresos: number;
   gastos: number;
-  balanceInversion: number;
+  balance: number;
 }

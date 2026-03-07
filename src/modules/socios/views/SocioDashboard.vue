@@ -91,7 +91,7 @@
       <!-- Columna Derecha -->
       <div class="col-md-6 col-lg-6 mt-2 mt-md-0 px-0 px-md-3">
         <h4>Balances Anuales</h4>
-        <BalancesAnualesPorSocio :balances="balanceSocio?.balances ?? []" />
+        <BalancesAnualesPorSocio :balances="balanceSocio?.historialAnual ?? []" />
       </div>
     </div>
   </div>
@@ -124,7 +124,7 @@ const { data: balanceSocio } = useQuery({
   },
 });
 
-const balancesAnuales = computed(() => balanceSocio.value?.balances ?? []);
+const balancesAnuales = computed(() => balanceSocio.value?.historialAnual ?? []);
 
 const chartLineData = computed(() => ({
   labels: balancesAnuales.value?.map((balance) => balance.annio),

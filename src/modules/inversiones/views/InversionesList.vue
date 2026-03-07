@@ -19,7 +19,7 @@
                 <td class="text-end">{{ formatoDecimal().format(inversion.ingresos) }}</td>
                 <td class="text-end">{{ formatoDecimal().format(inversion.gastos) }}</td>
                 <td class="text-end">
-                  {{ formatoDecimal().format(inversion.balanceInversion) }}
+                  {{ formatoDecimal().format(inversion.balance) }}
                 </td>
                 <td class="text-center">
                   <router-link

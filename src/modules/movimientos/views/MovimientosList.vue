@@ -15,22 +15,24 @@
                 <th scope="col">Concepto</th>
                 <th scope="col" class="text-end">Cantidad</th>
                 <th scope="col" class="text-end">Balance</th>
+                <th scope="col">Fecha Apertura</th>
                 <th scope="col">Fecha Última Actividad</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="movimiento in movimientos" :key="movimiento.idMovimiento">
+              <tr v-for="movimiento in data?.content" :key="movimiento.idMovimiento">
                 <td scope="row" class="text-center">{{ movimiento.idMovimiento }}</td>
                 <td>{{ movimiento.categoria }}</td>
                 <td>{{ movimiento.concepto }}</td>
                 <td class="text-end">
-                  {{ movimiento.cantidadMovimiento }} {{ movimiento.medida }}
+                  {{ movimiento.cantidad }} {{ movimiento.medida }}
                 </td>
                 <td class="text-end">
-                  {{ formatoDecimal().format(movimiento.balanceMovimiento) }}
+                  {{ formatoDecimal().format(movimiento.balance) }}
                   {{ movimiento.moneda }}
                 </td>
+                <td>{{ movimiento.fechaApertura }}</td>
                 <td>{{ movimiento.fechaUltimaActividad }}</td>
                 <td class="text-center p-1">
                   <button
@@ -94,7 +96,7 @@ const getMovimientoParaCopiar = (idMovimientoParaCopiar: number) => {
   sessionStorage.setItem('state-id-movimiento-copiar', String(idMovimientoParaCopiar));
 };
 
-const { data: movimientos = [], refetch } = useQuery({
+const { data, refetch } = useQuery({
   queryKey: ['movimientos'],
   queryFn: async () => {
     return await getMovimientosPorInversion(props.idInversion);

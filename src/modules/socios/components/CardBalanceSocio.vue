@@ -11,7 +11,7 @@
         {{ formatoDecimal().format(Number(props.balanceSocio?.gastos)) }}
         <br />
         <strong>Balance: </strong>
-        {{ formatoDecimal().format(Number(props.balanceSocio?.balanceSocio)) }}
+        {{ formatoDecimal().format(Number(props.balanceSocio?.balance)) }}
       </p>
     </div>
   </div>

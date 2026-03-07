@@ -2,9 +2,10 @@ export interface MovimientoBalance {
   idMovimiento: number;
   concepto: string;
   categoria: string;
-  cantidadMovimiento: number;
+  cantidad: number;
   medida?: string;
-  balanceMovimiento: number;
+  balance: number;
   moneda: string;
+  fechaApertura: Date;
   fechaUltimaActividad: Date;
 }
