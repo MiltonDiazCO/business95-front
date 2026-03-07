@@ -1,5 +1,5 @@
 import { b95Api } from '@/api/b95';
-import { handleAxiosError } from '@/common/utils/handle.axios.error';
+import { obtenerB95ApiError } from '@/common/utils/handle.axios.error';
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import type { MovimientoBalancesSocios } from '@/modules/movimientos/interfaces/movimiento.balances.interface';
 import type { Movimiento } from '@/modules/movimientos/interfaces/movimiento.interface';
@@ -16,7 +16,7 @@ export const saveActividades = async (
     );
     return data;
   } catch (error) {
-    throw handleAxiosError(error);
+    throw obtenerB95ApiError(error);
   }
 };
 
@@ -24,7 +24,7 @@ export const deleteActividades = async (idMovimiento: number, idActividades: num
   try {
     await b95Api.delete(`movimientos/${idMovimiento}/actividades`, { data: idActividades });
   } catch (error) {
-    handleAxiosError(error);
+    throw obtenerB95ApiError(error);
   }
 };
 
@@ -35,7 +35,7 @@ export const getActividadesPorMovimiento = async (idMovimiento: number) => {
     } = await b95Api.get<Movimiento>(`movimientos/${idMovimiento}`);
     return actividades;
   } catch (error) {
-    throw handleAxiosError(error);
+    throw obtenerB95ApiError(error);
   }
 };
 
@@ -46,6 +46,6 @@ export const getBalanceSociosPorMovimiento = async (idMovimiento: number) => {
     );
     return data;
   } catch (error) {
-    handleAxiosError(error);
+    throw obtenerB95ApiError(error);
   }
 };

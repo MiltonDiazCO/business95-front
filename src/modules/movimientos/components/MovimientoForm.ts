@@ -1,11 +1,11 @@
-import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
+import type { ErrorB95Api } from '@/api/interfaces/b95.api.error.interface';
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import { useCatalogos } from '@/modules/catalogos/composables/useCatalogos';
 import {
   getMovimientoById,
   saveMovimiento,
   updateMovimiento,
-} from '@/modules/catalogos/services/movimiento-service';
+} from '@/modules/movimientos/services/movimiento-service';
 import { useForm } from 'vee-validate';
 import { defineComponent, watch, type PropType } from 'vue';
 import { useRoute, useRouter } from 'vue-router';

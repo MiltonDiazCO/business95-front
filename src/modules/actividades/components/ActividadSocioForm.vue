@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
+import type { ErrorB95Api } from '@/api/interfaces/b95.api.error.interface';
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import { saveActividades } from '@/modules/actividades/services/actividad-service';
 import { useCatalogos } from '@/modules/catalogos/composables/useCatalogos';

@@ -1,4 +1,4 @@
-export interface ErrorB95Api {
+export interface B95ApiError {
   mensaje: string;
   errores: string[];
   codigoEstado: number;

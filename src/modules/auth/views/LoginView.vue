@@ -10,7 +10,7 @@
 
         <!-- Formulario -->
         <form @submit.prevent="login">
-          <div class="mb-4">
+          <div class="mb-2">
             <label for="correo-electronico" class="form-label">Correo Eletronico</label>
             <input
               type="text"
@@ -19,7 +19,10 @@
               class="form-control"
               placeholder="Correo Electronico"
               autofocus
-            /> <br>
+            />
+            <p v-if="errors.correoElectronico" class="my-1 text-danger">
+              {{ errors.correoElectronico }}
+            </p>
 
             <label for="contrasena">Contraseña</label>
             <input
@@ -29,6 +32,13 @@
               class="form-control"
               placeholder="Contraseña"
             />
+            <p v-if="errors.contrasena" class="my-1 text-danger">
+              {{ errors.contrasena }}
+            </p>
+          </div>
+
+          <div v-if="authError" class="alert alert-danger mb-2" role="alert">
+            <p class="m-0">{{ authError.error }}</p>
           </div>
 
           <div class="d-grid">
@@ -47,20 +57,28 @@
 </style>
 
 <script lang="ts" setup>
-import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
+import type { B95AuthError } from '@/api/interfaces/b95.auth.error.interface';
 import { useForm } from 'vee-validate';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import * as yup from 'yup';
 import { useAuthStore } from '../stores/auth.store';
 
 const router = useRouter();
 
-const dataError = ref('');
+const authError = ref<B95AuthError>();
 
-const { handleSubmit } = useForm({});
+const schema = yup.object({
+  correoElectronico: yup.string().email().required(),
+  contrasena: yup.string().min(4).required(),
+});
 
-const correoElectronico = ref('');
-const contrasena = ref('');
+const { handleSubmit, defineField, errors } = useForm({
+  validationSchema: schema,
+});
+
+const [correoElectronico] = defineField('correoElectronico');
+const [contrasena] = defineField('contrasena');
 
 const login = handleSubmit(async () => {
   const authStore = useAuthStore();
@@ -69,8 +87,8 @@ const login = handleSubmit(async () => {
     await authStore.login(correoElectronico.value, contrasena.value);
     router.push('/');
   } catch (error: unknown) {
-    const errorApi = error as ErrorB95Api;
-    dataError.value = errorApi?.errores?.[0] ?? 'Ha ocurrido un error';
+    const errorAuth = error as B95AuthError;
+    authError.value = errorAuth ?? 'Ha ocurrido un error';
   }
 });
 </script>

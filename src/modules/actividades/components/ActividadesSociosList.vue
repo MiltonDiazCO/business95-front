@@ -62,7 +62,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ErrorB95Api } from '@/common/interfaces/error.b95api.interface';
+import type { ErrorB95Api } from '@/api/interfaces/b95.api.error.interface';
 import { formatoDecimal } from '@/common/utils/formato.moneda';
 import ActividadesModalForm from '@/modules/actividades/components/ActividadesModalForm.vue';
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';

@@ -73,7 +73,7 @@
 
 <script lang="ts" setup>
 import { formatoDecimal } from '@/common/utils/formato.moneda';
-import { getMovimientosPorInversion } from '@/modules/catalogos/services/movimiento-service';
+import { getMovimientosPorInversion } from '@/modules/movimientos/services/movimiento-service';
 import { useQuery } from '@tanstack/vue-query';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';

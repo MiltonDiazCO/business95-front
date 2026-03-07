@@ -14,7 +14,7 @@ yup.setLocale({
     length: 'Debe tener exactamente ${length} caracteres',
     min: 'Debe tener al menos ${min} caracteres',
     max: 'Debe tener como máximo ${max} caracteres',
-    email: 'Debe ser un correo electrónico válido',
+    email: 'Debe ser un correo válido',
     url: 'Debe ser una URL válida',
     trim: 'No debe contener espacios al inicio o al final',
     lowercase: 'Debe estar en minúsculas',
