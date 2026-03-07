@@ -1,5 +1,5 @@
 import { b95Api } from '@/api/b95.ts';
-import { handleAxiosError } from '@/common/utils/handle.axios.error';
+import { obtenerB95ApiError } from '@/utils/handle.axios.error';
 import type { Categoria } from '../interfaces/categoria.interface';
 
 export const getCategorias = async () => {
@@ -7,6 +7,6 @@ export const getCategorias = async () => {
     const { data } = await b95Api.get<Categoria[]>(`/categorias`);
     return data;
   } catch (error) {
-    throw handleAxiosError(error);
+    throw obtenerB95ApiError(error);
   }
 };

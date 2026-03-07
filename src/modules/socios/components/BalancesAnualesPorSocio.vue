@@ -22,11 +22,11 @@
 </template>
 
 <script lang="ts" setup>
-import { formatoDecimal } from '@/common/utils/formato.moneda';
-import type { BalancesAnuales } from '@/modules/socios/interfaces/balance.socio.interface';
+import { formatoDecimal } from '@/utils/formato.moneda';
+import type { BalanceAnual } from '@/modules/socios/interfaces/balance.socio.interface';
 
 interface Props {
-  balances: BalancesAnuales[];
+  balances: BalanceAnual[];
 }
 
 const props = defineProps<Props>();

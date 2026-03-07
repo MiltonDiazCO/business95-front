@@ -1,5 +1,5 @@
 import { b95Api } from '@/api/b95.ts';
-import { handleAxiosError } from '@/common/utils/handle.axios.error';
+import { obtenerB95ApiError } from '@/utils/handle.axios.error';
 import type { InversionBalance } from '@/modules/inversiones/interfaces/inversion.balance.interface';
 
 export const getInversionesPorSocio = async () => {
@@ -7,6 +7,6 @@ export const getInversionesPorSocio = async () => {
     const { data } = await b95Api.get<InversionBalance[]>(`/socios/inversiones`);
     return data;
   } catch (error) {
-    throw handleAxiosError(error);
+    throw obtenerB95ApiError(error);
   }
 };

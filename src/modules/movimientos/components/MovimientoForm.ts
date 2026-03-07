@@ -1,4 +1,4 @@
-import type { ErrorB95Api } from '@/api/interfaces/b95.api.error.interface';
+import type { B95ApiError } from '@/api/interfaces/b95.api.error.interface';
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import { useCatalogos } from '@/modules/catalogos/composables/useCatalogos';
 import {
@@ -97,7 +97,7 @@ export default defineComponent({
           emit('send-update-status', 'update-movimiento-ok');
         }
       } catch (error: unknown) {
-        const errorApi = error as ErrorB95Api;
+        const errorApi = error as B95ApiError;
         errorApi.errores.forEach((error) => {
           console.log(error);
         });

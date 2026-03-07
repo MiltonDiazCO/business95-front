@@ -1,5 +1,5 @@
 import { b95Api } from '@/api/b95';
-import { handleAxiosError } from '@/common/utils/handle.axios.error';
+import { obtenerB95ApiError } from '@/utils/handle.axios.error';
 import type { TipoActividad } from '@/modules/catalogos/interfaces/tipo.actividad.interface';
 
 export const getTipoActividades = async () => {
@@ -7,6 +7,6 @@ export const getTipoActividades = async () => {
     const { data } = await b95Api.get<TipoActividad[]>(`/tipo-actividades`);
     return data;
   } catch (error) {
-    throw handleAxiosError(error);
+    throw obtenerB95ApiError(error);
   }
 };

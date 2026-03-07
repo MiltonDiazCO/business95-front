@@ -1,5 +1,5 @@
 import { b95Api } from '@/api/b95';
-import { obtenerB95ApiError } from '@/common/utils/handle.axios.error';
+import { obtenerB95ApiError } from '@/utils/handle.axios.error';
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import type { MovimientoBalancesSocios } from '@/modules/movimientos/interfaces/movimiento.balances.interface';
 import type { Movimiento } from '@/modules/movimientos/interfaces/movimiento.interface';

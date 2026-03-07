@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { formatoDecimal } from '@/common/utils/formato.moneda';
+import { formatoDecimal } from '@/utils/formato.moneda';
 import type { BalanceSocio } from '@/modules/socios/interfaces/balance.socio.interface';
 
 interface Props {

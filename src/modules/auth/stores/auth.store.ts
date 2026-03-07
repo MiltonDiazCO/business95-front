@@ -2,7 +2,7 @@ import { b95Api } from '@/api/b95';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { EstadoAutenticacion } from '../interfaces/estado-autenticacion.enum';
-import { obtenerB95AuthError } from '@/common/utils/handle.axios.error';
+import { obtenerB95AuthError } from '@/utils/handle.axios.error';
 
 export const useAuthStore = defineStore('auth', () => {
   const estadoDeAutenticacion = ref<EstadoAutenticacion>(EstadoAutenticacion.VERIFICANDO);

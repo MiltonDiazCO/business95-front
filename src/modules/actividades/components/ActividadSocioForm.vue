@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { ErrorB95Api } from '@/api/interfaces/b95.api.error.interface';
+import type { B95ApiError } from '@/api/interfaces/b95.api.error.interface';
 import type { ActividadSocio } from '@/modules/actividades/interfaces/actividad.socio.interface';
 import { saveActividades } from '@/modules/actividades/services/actividad-service';
 import { useCatalogos } from '@/modules/catalogos/composables/useCatalogos';
@@ -116,7 +116,7 @@ const onSubmit = handleSubmit(async () => {
     try {
       await saveActividades(Number(props.idMovimiento), [actividad]);
     } catch (error) {
-      console.log((error as ErrorB95Api).errores);
+      console.log((error as B95ApiError).errores);
     }
   }
 

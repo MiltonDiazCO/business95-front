@@ -1,5 +1,5 @@
 import { b95Api } from '@/api/b95';
-import { obtenerB95ApiError } from '@/common/utils/handle.axios.error';
+import { obtenerB95ApiError } from '@/utils/handle.axios.error';
 import type { BalanceSocio } from '@/modules/socios/interfaces/balance.socio.interface';
 import type { Socio } from '@/modules/socios/interfaces/socio.interface';
 
