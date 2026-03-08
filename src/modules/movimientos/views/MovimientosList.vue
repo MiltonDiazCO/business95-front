@@ -25,9 +25,7 @@
                 <td scope="row" class="text-center">{{ movimiento.idMovimiento }}</td>
                 <td>{{ movimiento.categoria }}</td>
                 <td>{{ movimiento.concepto }}</td>
-                <td class="text-end">
-                  {{ movimiento.cantidad }} {{ movimiento.medida }}
-                </td>
+                <td class="text-end">{{ movimiento.cantidad }} {{ movimiento.medida }}</td>
                 <td class="text-end">
                   {{ formatoDecimal().format(movimiento.balance) }}
                   {{ movimiento.moneda }}
@@ -68,16 +66,28 @@
         </div>
       </div>
     </div>
+
+    <div class="row">
+      <div class="col">
+        <pagination-nav
+          v-if="data"
+          :page-response="data"
+          @info-paginador="paginador = $event"
+        ></pagination-nav>
+      </div>
+    </div>
   </div>
 
   <MovimientoModalForm :id-movimiento="idMovimiento" @send-update-status="receiveUpdateStatus" />
 </template>
 
 <script lang="ts" setup>
-import { formatoDecimal } from '@/utils/formato.moneda';
+import PaginationNav from '@/common/components/PaginationNav.vue';
+import type { PageControl } from '@/common/interfaces/page.control.interface';
 import { getMovimientosPorInversion } from '@/modules/movimientos/services/movimiento-service';
+import { formatoDecimal } from '@/utils/formato.moneda';
 import { useQuery } from '@tanstack/vue-query';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import MovimientoModalForm from '../components/MovimientoModalForm.vue';
 
@@ -92,16 +102,22 @@ interface Props {
 
 const props = defineProps<Props>();
 
+const paginador = ref<PageControl>({ pagina: 0, limite: 10 });
+
+watch(paginador, () => {
+  refetch();
+});
+
+const { data, refetch } = useQuery({
+  queryKey: ['movimientos', props.idInversion, paginador.value.pagina, paginador.value.limite],
+  queryFn: async () => {
+    return await getMovimientosPorInversion(props.idInversion, paginador.value);
+  },
+});
+
 const getMovimientoParaCopiar = (idMovimientoParaCopiar: number) => {
   sessionStorage.setItem('state-id-movimiento-copiar', String(idMovimientoParaCopiar));
 };
-
-const { data, refetch } = useQuery({
-  queryKey: ['movimientos'],
-  queryFn: async () => {
-    return await getMovimientosPorInversion(props.idInversion);
-  },
-});
 
 const receiveUpdateStatus = (status: string) => {
   if (status.toLowerCase().includes('OK'.toLowerCase())) {

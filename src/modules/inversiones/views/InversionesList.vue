@@ -39,8 +39,8 @@
 </template>
 
 <script lang="ts" setup>
-import { formatoDecimal } from '@/utils/formato.moneda';
 import { getInversionesPorSocio } from '@/modules/inversiones/services/inversion-service';
+import { formatoDecimal } from '@/utils/formato.moneda';
 import { useQuery } from '@tanstack/vue-query';
 
 const { data: inversiones = [] } = useQuery({

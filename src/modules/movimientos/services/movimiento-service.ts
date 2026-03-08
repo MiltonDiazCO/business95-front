@@ -4,6 +4,7 @@ import type { MovimientoBalance } from '@/modules/movimientos/interfaces/movimie
 import type { Movimiento } from '@/modules/movimientos/interfaces/movimiento.interface';
 import { obtenerB95ApiError } from '@/utils/handle.axios.error';
 import type { MovimientoBalancesSocios } from '../interfaces/movimiento.balances.interface';
+import type { PageControl } from '@/common/interfaces/page.control.interface';
 
 export const saveMovimiento = async (movimiento: Movimiento) => {
   try {
@@ -32,10 +33,10 @@ export const getMovimientoById = async (idMovimiento: number) => {
   }
 };
 
-export const getMovimientosPorInversion = async (idInversion: number) => {
+export const getMovimientosPorInversion = async (idInversion: number, paginador: PageControl) => {
   try {
     const { data } = await b95Api.get<PageResponse<MovimientoBalance>>(
-      `/inversiones/${idInversion}/movimientos`,
+      `/inversiones/${idInversion}/movimientos?pagina=${paginador.pagina}&limite=${paginador.limite}`,
     );
 
     return data;

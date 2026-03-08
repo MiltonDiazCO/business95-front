@@ -1,31 +1,37 @@
 :root {
   --color-principal: #6656c6;
   --color-alternativo: #7a6fd6;
-  --color-texto-alternativo: #ffffff;
+  --texto-alternativo: #ffffff;
 }
 
+/* color-principal */
 .color-principal {
-  color: var(--color-principal)
+  color: var(--color-principal);
 }
 
+.color-principal:hover,
+.color-principal:focus {
+  color: var(--color-alternativo);
+}
+
+/* color-alternativo */
 .color-alternativo {
   color: var(--color-alternativo);
 }
 
-.color-texto-alternativo {
-  color: var(--color-texto-alternativo);
-}
-
+/* btn-principal */
 .btn-principal {
   background-color: var(--color-principal);
-  color: var(--color-texto-alternativo);
+  color: var(--texto-alternativo);
 }
 
-.btn-principal:hover {
+.btn-principal:hover,
+.btn-principal:focus {
   background: var(--color-alternativo);
-  color: var(--color-texto-alternativo);
+  color: var(--texto-alternativo);
 }
 
+/* btn-principal-outline */
 .btn-principal-outline {
   border-color: var(--color-principal);
   color: var(--color-principal);
@@ -33,5 +39,5 @@
 
 .btn-principal-outline:hover {
   background-color: var(--color-principal);
-  color: var(--color-texto-alternativo);
+  color: var(--texto-alternativo);
 }
