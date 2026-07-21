@@ -1,4 +1,4 @@
-# Business 95 (Frontend)
+# 🤝 Business 95 (Frontend)
 
 Sistema Web para el Control y la Gestión de Inversiones
 
@@ -53,7 +53,7 @@ Las variables de entorno están definidas en el archivo `.env` (y documentadas e
 
 ```env
 VITE_STAGE=dev
-VITE_B95_API_URL=http://localhost:8080/api/v1
+VITE_B95_API_URL=http://localhost:8082/api/v1
 ```
 
 Estas permiten configurar el entorno y la URL base de la API utilizada por Axios.
