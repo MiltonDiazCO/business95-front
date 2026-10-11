@@ -1,3 +1,6 @@
+.env.dev
+.env.prod
+
 node_modules
 dist
 .git
