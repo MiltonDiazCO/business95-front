@@ -4,8 +4,8 @@
       <li class="page-item">
         <button
           class="page-link color-principal"
-          :class="{ disabled: props.pageResponse.first }"
-          :disabled="props.pageResponse.first"
+          :class="{ disabled: props.pageResponse.esPrimeraPagina }"
+          :disabled="props.pageResponse.esPrimeraPagina"
           @click="retroceder()"
         >
           <i class="bi bi-caret-left-fill"></i>
@@ -16,7 +16,7 @@
         <button
           v-if="inicioPaginador + (pagina - 1) < totalPaginas"
           class="page-link color-principal"
-          :class="{ 'btn-principal': inicioPaginador + (pagina - 1) === props.pageResponse.number }"
+          :class="{ 'btn-principal': inicioPaginador + (pagina - 1) === props.pageResponse.pagina }"
           @click="enviarPaginador(inicioPaginador + (pagina - 1), tamannioPagina)"
         >
           {{ inicioPaginador + pagina }}
@@ -26,8 +26,8 @@
       <li class="page-item">
         <button
           class="page-link color-principal"
-          :class="{ disabled: props.pageResponse.last }"
-          :disabled="props.pageResponse.last"
+          :class="{ disabled: props.pageResponse.esUltimaPagina }"
+          :disabled="props.pageResponse.esUltimaPagina"
           @click="avanzar()"
         >
           <i class="bi bi-caret-right-fill"></i>
@@ -70,8 +70,8 @@ const tamannioPagina = ref<number>(10);
 const tamanniosPagina = [5, 10, 25, 50];
 const tamannioPaginador = ref<number>(5);
 
-const paginaActual = computed(() => props.pageResponse.number);
-const totalPaginas = computed(() => props.pageResponse.totalPages);
+const paginaActual = computed(() => props.pageResponse.pagina);
+const totalPaginas = computed(() => props.pageResponse.totalPaginas);
 
 const inicioPaginador = computed(
   () => Math.trunc(paginaActual.value / tamannioPaginador.value) * tamannioPaginador.value,

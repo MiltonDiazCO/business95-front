@@ -21,7 +21,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="movimiento in data?.content" :key="movimiento.idMovimiento">
+              <tr v-for="movimiento in data?.contenido" :key="movimiento.idMovimiento">
                 <td scope="row" class="text-center">{{ movimiento.idMovimiento }}</td>
                 <td>{{ movimiento.categoria }}</td>
                 <td>{{ movimiento.concepto }}</td>

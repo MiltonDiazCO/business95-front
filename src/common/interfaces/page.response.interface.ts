@@ -1,28 +1,10 @@
 export interface PageResponse<T> {
-  content: T[];
-  pageable: Pageable;
-  last: boolean;
-  totalPages: number;
-  totalElements: number;
-  first: boolean;
-  numberOfElements: number;
-  size: number;
-  number: number;
-  sort: Sort;
-  empty: boolean;
-}
-
-export interface Pageable {
-  pageNumber: number;
-  pageSize: number;
-  sort: Sort;
-  offset: number;
-  unpaged: boolean;
-  paged: boolean;
-}
-
-export interface Sort {
-  unsorted: boolean;
-  empty: boolean;
-  sorted: boolean;
+  contenido: T[];
+  pagina: number
+  limite: number
+  elementosEnPagina: number
+  totalPaginas: number
+  totalElementos: number
+  esPrimeraPagina: boolean
+  esUltimaPagina: boolean
 }
